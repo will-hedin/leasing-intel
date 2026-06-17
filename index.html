@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hyperscale Leasing Intelligence — North America 2026</title>
+<style>
+:root{
+  --bg:#0b0f17; --panel:#121927; --panel2:#0f1520; --border:#1f2a3d;
+  --text:#dbe4f0; --muted:#8294ab; --accent:#4da3ff; --accent2:#7c5cff;
+  --green:#34d399; --amber:#fbbf24; --red:#f87171; --teal:#2dd4bf;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:14px;line-height:1.45}
+.wrap{max-width:1500px;margin:0 auto;padding:18px}
+header{padding:18px 0 6px}
+header h1{font-size:22px;font-weight:700;letter-spacing:.2px}
+header h1 .hl{color:var(--accent)}
+.sub{color:var(--muted);font-size:12.5px;margin-top:4px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:10px;margin:16px 0}
+.kpi{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:12px 14px}
+.kpi .v{font-size:21px;font-weight:700;color:var(--accent)}
+.kpi .l{font-size:11px;color:var(--muted);margin-top:3px;text-transform:uppercase;letter-spacing:.5px}
+.kpi.warn .v{color:var(--amber)}
+.kpi.good .v{color:var(--green)}
+.alert{background:linear-gradient(90deg,#1a2335,#121927);border:1px solid #2b3b58;border-left:4px solid var(--amber);border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:13px}
+.alert b{color:var(--amber)}
+.alert .item{margin:3px 0;color:var(--text)}
+.alert .d{color:var(--muted);font-size:12px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0 12px;border-bottom:1px solid var(--border);padding-bottom:10px}
+.tab{background:var(--panel2);border:1px solid var(--border);color:var(--muted);padding:8px 16px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600}
+.tab.active{background:var(--accent);color:#08111f;border-color:var(--accent)}
+.tab:hover:not(.active){color:var(--text)}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;align-items:center}
+.filters select,.filters input{background:var(--panel2);border:1px solid var(--border);color:var(--text);padding:7px 10px;border-radius:7px;font-size:12.5px}
+.filters input{min-width:220px}
+.filters .clr{background:none;border:1px solid var(--border);color:var(--muted);padding:7px 12px;border-radius:7px;cursor:pointer;font-size:12px}
+.filters .clr:hover{color:var(--text)}
+.tablebox{overflow-x:auto;border:1px solid var(--border);border-radius:10px;background:var(--panel)}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{position:sticky;top:0;background:#18223445;backdrop-filter:blur(6px);background-color:#182234;color:var(--muted);text-align:left;padding:9px 10px;font-size:11px;text-transform:uppercase;letter-spacing:.4px;cursor:pointer;user-select:none;white-space:nowrap;border-bottom:1px solid var(--border)}
+th:hover{color:var(--accent)}
+th .arr{font-size:9px}
+td{padding:9px 10px;border-bottom:1px solid #16203255;vertical-align:top}
+tr.mainrow{cursor:pointer}
+tr.mainrow:hover{background:#16203266}
+tr.detail td{background:var(--panel2);padding:14px 18px}
+.dgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px 24px}
+.dgrid .f .k{color:var(--muted);font-size:10.5px;text-transform:uppercase;letter-spacing:.4px}
+.dgrid .f .x{margin-top:2px;font-size:12.5px}
+.badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:10.5px;font-weight:700;letter-spacing:.3px}
+.b-high{background:#34d39922;color:var(--green)}
+.b-med{background:#fbbf2422;color:var(--amber)}
+.b-low{background:#f8717122;color:var(--red)}
+.b-ig{background:#4da3ff22;color:var(--accent)}
+.b-nonig{background:#f8717122;color:var(--red)}
+.b-type{background:#7c5cff22;color:#a78bfa}
+.prob{font-weight:700}
+.p-hi{color:var(--green)} .p-md{color:var(--amber)} .p-lo{color:var(--red)}
+.tenant{font-weight:600}
+.est{color:var(--amber);font-style:italic}
+.nd{color:var(--muted)}
+.src a{color:var(--accent);text-decoration:none}
+.src a:hover{text-decoration:underline}
+.note{background:var(--panel2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;margin:12px 0;font-size:12.5px;color:var(--muted)}
+.note b{color:var(--text)}
+.summary-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:12px}
+.scard{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:14px}
+.scard h3{font-size:15px;margin-bottom:6px}
+.scard .meta{color:var(--muted);font-size:12px;margin-bottom:8px}
+.scard .stats{display:flex;gap:18px;flex-wrap:wrap}
+.scard .stats .s .v{font-size:16px;font-weight:700;color:var(--accent)}
+.scard .stats .s .l{font-size:10.5px;color:var(--muted);text-transform:uppercase}
+.scard ul{margin:8px 0 0 16px;font-size:12px;color:var(--muted)}
+.section-title{font-size:16px;font-weight:700;margin:18px 0 10px}
+.src-list{font-size:12.5px}
+.src-list li{margin:5px 0 5px 18px}
+.src-list .vd{color:var(--muted);font-size:11px}
+footer{margin:24px 0 12px;color:var(--muted);font-size:11.5px;text-align:center}
+@media(max-width:700px){.dgrid{grid-template-columns:1fr}.filters input{min-width:140px}}
+
+.newrun{background:#0d1a12;border:1px solid #2e7d32;border-radius:10px;padding:14px 18px;margin:14px 0}
+.newrun .nr-title{font-weight:700;color:#7ee787;margin-bottom:8px;font-size:14px}
+.newrun .nr-item{padding:5px 0;font-size:13px;border-bottom:1px dashed #1d3322;line-height:1.5}
+.newrun .nr-item:last-child{border-bottom:none}
+.newrun .tag{display:inline-block;font-size:10px;font-weight:700;padding:1px 7px;border-radius:8px;margin-right:6px;background:#163a1e;color:#7ee787;border:1px solid #2e7d32;vertical-align:1px}
+.newrun .tag.scope{background:#2a2410;color:#f0b429;border-color:#7a5c00}
+.newrun .tag.none{background:#1a2030;color:#8b98b8;border-color:#2c3a55}
+.regionbar{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin:16px 0 4px}
+.regionbar .rlabel{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-right:4px}
+.regionbar button{background:var(--panel2);border:1px solid var(--border);color:var(--muted);font-size:13px;font-weight:700;padding:7px 16px;border-radius:8px;cursor:pointer}
+.regionbar button:hover:not(.active){color:var(--text)}
+.regionbar button.active{background:var(--accent);color:#08111f;border-color:var(--accent)}
+.globalbar{background:#0d1a12;border:1px solid #2e7d32;border-radius:10px;padding:12px 16px;margin:6px 0 14px;font-size:14px}
+.globalbar b{color:#7ee787}
+.sumtitle{font-size:15px;font-weight:700;margin:20px 0 8px;color:var(--text)}
+.sumtitle .rt{color:var(--muted);font-size:12px;font-weight:400}
+.sumtable{width:100%;border-collapse:collapse;font-size:12.5px}
+.sumtable th{background:#182234;color:var(--muted);text-align:left;padding:8px 10px;font-size:11px;text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--border)}
+.sumtable th.mw,.sumtable td.mw{text-align:right;font-variant-numeric:tabular-nums}
+.sumtable td{padding:7px 10px;border-bottom:1px solid #16203255}
+.sumtable tr.tot td{font-weight:700;border-top:2px solid #2c3a52;background:#0f1620}
+.cell-high{background:#163a1e;color:#7ee787;font-weight:600;border-radius:4px}
+.cell-med{background:#3a3410;color:#f0c040;font-weight:600;border-radius:4px}
+.cell-gpu{background:#10293a;color:#7cc4f0;font-weight:600;border-radius:4px}
+.sumlegend{display:flex;gap:18px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin:12px 0}
+.sumlegend span{display:inline-flex;align-items:center;gap:6px}
+.sumlegend i{width:12px;height:12px;border-radius:3px;display:inline-block}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>Hyperscale Leasing Intelligence — <span class="hl">Global 2026</span></h1>
+  <div class="sub">Tracked tenants: 8 hyperscalers (AWS · Meta · Google · Microsoft · Oracle · NVIDIA · Tesla · Alibaba) + 27 neocloud/GPU-cloud providers (CoreWeave, Crusoe, Nebius, Lambda, Fluidstack, Together AI, RunPod &amp; more) &nbsp;|&nbsp; Global: North America · EMEA · APAC &nbsp;|&nbsp; 2026 announcements &nbsp;|&nbsp; Last updated: <b>June 15, 2026</b></div>
+</header>
+
+<div class="kpis" id="kpis"></div>
+
+<div class="alert" id="alertbar"></div>
+
+<div class="newrun">
+  <div class="nr-title">🆕 New This Run — June 15, 2026 (global expansion: EMEA + APAC added)</div>
+  <div class="nr-item"><span class="tag">NEW SCOPE</span>Coverage extended from North America to <b>global</b>. Added <b>8 EMEA</b> and <b>6 APAC</b> confirmed/sourced deals, plus a <b>Summary</b> tab modeled on the May-26 market-intel view and a <b>region toggle</b> (Global / NA / EMEA / APAC). Each table now carries a <b>City</b> column.</div>
+  <div class="nr-item"><span class="tag scope">EMEA highlights</span>Nscale–Microsoft Narvik 210 MW · Start Campus–Microsoft Sines 200 MW · Bitzero–OneQode Norway 110 MW · EdgeConneX Skellefteå ~900 MW (tenant unconfirmed) · Merlin–CoreWeave Spain · Kao–Nebius Harlow 22 MW.</div>
+  <div class="nr-item"><span class="tag scope">APAC highlights</span>CDC 555 MW (Australia's largest-ever) · NextDC Sydney S4 250 MW · AdaniConneX–Google Visakhapatnam 1 GW · Tata HyperVault–OpenAI India · NextDC S7–OpenAI 550 MW · Samsung/SK–OpenAI Korea.</div>
+  <div class="nr-item"><span class="tag">DELTA (Jun 15)</span>Global recency sweep (Jun 12–15) found no new <i>executed</i> leases. Added <b>Meta–Reliance Jamnagar 168 MW</b> (India BTS, announced Jun 10) as a confirmed APAC deal, and <b>Anthropic's 12+ LOIs</b> (&gt;1 GW US, Google-backstop talks) to the watch list.</div>
+  <div class="nr-item"><span class="tag none">DATA NOTE</span>The Summary tab reproduces the May-26 slide faithfully, incl. medium/low-confidence and GPU-cloud deals; several tenant attributions there (QTS, Virtus, CtrlS, Adani/AWS, DCI, Colt, AirTrunk, Global Switch, BridgeDC) are slide intel and remain unverified in public sources.</div>
+</div>
+
+<div class="regionbar" id="regionbar">
+  <span class="rlabel">Region</span>
+  <button data-r="ALL" class="active">🌐 Global</button>
+  <button data-r="NA">North America</button>
+  <button data-r="EMEA">EMEA</button>
+  <button data-r="APAC">APAC</button>
+</div>
+
+<div class="tabs" id="tabs">
+  <div class="tab active" data-t="summary">Summary</div>
+  <div class="tab" data-t="deals">Confirmed Deals</div>
+  <div class="tab" data-t="watch">Predictive Watch List</div>
+  <div class="tab" data-t="tenants">Tenant Summary</div>
+  <div class="tab" data-t="lessors">Lessor Summary</div>
+  <div class="tab" data-t="markets">Market Summary</div>
+  <div class="tab" data-t="sources">Sources</div>
+</div>
+
+<!-- SUMMARY (slide view) -->
+<div class="pane" id="pane-summary">
+  <div class="globalbar" id="globalbar"></div>
+  <div class="sumlegend">
+    <span><i style="background:#163a1e"></i> High-confidence leases</span>
+    <span><i style="background:#3a3410"></i> Medium / low-confidence leases</span>
+    <span><i style="background:#10293a"></i> GPU cloud deals</span>
+  </div>
+  <div id="summarytables"></div>
+  <div class="note">Modeled on the VDC "2026-YTD leasing update — May-26" market-intel view (sources: VDC market intel, DC Byte, DCHawk, public sources). MW = IT load. Cloud designation includes Meta &amp; ByteDance social-media / fungible capacity. Several tenant attributions are market intel and unverified in public sources — see the Confirmed Deals tab for sourced, verified deals only.</div>
+</div>
+
+<!-- CONFIRMED DEALS -->
+<div class="pane" id="pane-deals" style="display:none">
+  <div class="filters">
+    <select id="f-tenant"><option value="">All tenants</option></select>
+    <select id="f-lessor"><option value="">All lessors</option></select>
+    <select id="f-state"><option value="">All states</option></select>
+    <select id="f-type"><option value="">All deal types</option></select>
+    <select id="f-conf"><option value="">All confidence</option><option>High</option><option>Medium</option><option>Low</option></select>
+    <select id="f-ig"><option value="">IG &amp; non-IG</option><option value="IG">IG tenant</option><option value="Non-IG">Non-IG tenant</option></select>
+    <input id="f-search" type="text" placeholder="Search deals (campus, city, lender…)">
+    <button class="clr" onclick="clearFilters()">× Clear</button>
+  </div>
+  <div class="tablebox">
+    <table id="dealtable">
+      <thead><tr>
+        <th data-k="announceDate">Announced <span class="arr">▼</span></th>
+        <th data-k="lessor">Lessor</th>
+        <th data-k="tenantShort">Tenant</th>
+        <th data-k="likelyTenant">Likely Tenant</th>
+        <th data-k="city">City</th>
+        <th data-k="state">State/Prov</th>
+        <th data-k="mwNum">MW</th>
+        <th data-k="tenor">Tenor</th>
+        <th data-k="structure">Structure</th>
+        <th data-k="tcvBase">TCV (base)</th>
+        <th data-k="confidence">Conf.</th>
+        <th data-k="igStatus">Credit</th>
+      </tr></thead>
+      <tbody id="dealbody"></tbody>
+    </table>
+  </div>
+  <div class="note">Click any row to expand full deal detail (lease economics, financing, backstop, termination rights, late-delivery penalties, sources). <b class="est">Italic amber</b> = estimate with stated basis. Grey = not disclosed. Non-IG tenant rows show backstop provider &amp; structure in the expanded panel.</div>
+</div>
+
+<!-- WATCH LIST -->
+<div class="pane" id="pane-watch" style="display:none">
+  <div class="tablebox">
+    <table id="watchtable">
+      <thead><tr>
+        <th>Prob.</th><th>Lessor / Site</th><th>City</th><th>State</th><th>Likely Tenant</th><th>Est. MW</th><th>Window</th><th>Key Signal</th>
+      </tr></thead>
+      <tbody id="watchbody"></tbody>
+    </table>
+  </div>
+  <div class="note">Probability = calibrated likelihood of a 2026 lease announcement. Anchors: terms already in priced bond docs ≈ 85%; operator-disclosed "advanced negotiations" ≈ 60–75%; contractual ROFO gated on power ≈ 40%; spec build with no disclosed negotiation ≈ 30–40%; post-failed-LOI discussions ≈ 25%. Click rows for full rationale and signals.</div>
+</div>
+
+<!-- TENANT SUMMARY -->
+<div class="pane" id="pane-tenants" style="display:none">
+  <div class="summary-cards" id="tenantcards"></div>
+  <div class="note"><b>No confirmed 2026 North America lease announcements found for:</b> AWS (post-pause posture — 2026 activity has been self-build land + acquisitions; its 300 MW Cipher lease was Nov 2025), Google (record Q1 2026 colo spend per TD Cowen implies unattributed signings; 2025 deals were Fluidstack-fronted with Google backstops), Tesla (Giga Texas AI build is self-build; 2026 leases found were R&D/industrial space, not data centers), and Alibaba (no US/Canada activity; Mexico expansion announced 2025). <b>Neocloud sweep (Jun 12 PM, 27 providers):</b> no 2026 NA leases-as-tenant found for Lambda, Fluidstack, Nscale, Together AI, Voltage Park or Crusoe — their NA lease books were built on 2025 announcements (Aligned/Prime/Patmos for Lambda; TeraWulf/Cipher/Hut 8 for Fluidstack; Ionic/WhiteFiber for Nscale); Vultr's 50 MW 5C Springfield OH deal was Dec 2025. Nothing found for RunPod, Paperspace, Linode, Hetzner, Latitude.sh, Hivelocity, PaleBlueDot, Arc Compute, Callosum, Parasail, Firmus, Gcore, NexGen Cloud, Genesis Cloud or Civo (several have stated NA ambitions — see watch list).</div>
+</div>
+
+<!-- LESSOR SUMMARY -->
+<div class="pane" id="pane-lessors" style="display:none">
+  <div class="summary-cards" id="lessorcards"></div>
+</div>
+
+<!-- MARKET SUMMARY -->
+<div class="pane" id="pane-markets" style="display:none">
+  <div class="tablebox">
+    <table>
+      <thead><tr><th>Market</th><th>State/Prov</th><th>Confirmed Deals</th><th>Disclosed MW</th><th>Leading Tenant</th><th>Notes</th></tr></thead>
+      <tbody id="marketbody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SOURCES -->
+<div class="pane" id="pane-sources" style="display:none">
+  <div class="section-title">All Sources (verified June 12, 2026)</div>
+  <ul class="src-list" id="srclist"></ul>
+</div>
+
+<footer>Hyperscale Leasing Intelligence · generated by /run-leasing-intel · all figures sourced or labeled est./Not disclosed · confidence reflects source quality, not deal desirability</footer>
+</div>
+
+<script>
+const ND = 'Not disclosed';
+let REGION = 'ALL';
+const inReg = r => REGION==='ALL' || r===REGION;
+const REGION_LABEL = {ALL:'Global', NA:'North America', EMEA:'EMEA', APAC:'APAC'};
+
+const DEALS = [
+{
+  region:"NA", lessor:"Meridian Arc HoldCo (Coatue/Frontier–Fluidstack JV)", tenantShort:"Fluidstack", tenantFull:"Fluidstack (Fluidstack Indiana Inc.) — 100% of 430 MW; anchor tenant of the Meridian Compute JV (50.1% Coatue/Frontier, 49.9% Fluidstack)",
+  likelyTenant:"—", likelyRationale:"Tenant named (Fluidstack) in bond and legal documents.",
+  developer:"Meridian Compute LLC / Next Frontier (Coatue) + Potentia (master-developer of Heartland Industrial Park)", city:"New Lebanon (Sullivan Co.)", state:"IN", campus:"Heartland Industrial Park — 430 MW phase (Bldg 1: 245 MW + Bldg 2: 185 MW), ~140 acres of a 2.1 GW master plan",
+  mw:"430", mwNum:430, itCapacity:"430 MW critical IT (245 + 185)", announceDate:"2026-04-16", dealType:"Build-to-suit (turnkey, 2 buildings)",
+  tenor:"15 yr + three 5-yr options (to 30 yr)", structure:"Build-to-suit, triple-net (NNN)", leaseType:"Yield-on-cost basis; cost-overrun recovery up to ~$18M/MW (per rating docs)",
+  yieldOnCost:ND, buildCost:"Not disclosed as single figure (notes fund land + Bldg 1 & 2 + substation + reserves)", tcvBase:ND, tcvRenewals:"Not disclosed (up to 30-yr term)",
+  financing:"$5.7B 6.25% senior secured notes due 2031 (NC2), priced at par; sole bookrunner Morgan Stanley; rated BB (Fitch) — largest AI / data-center high-yield bond to date; issuer Meridian Arc HoldCo LLC",
+  backstop:"Yes — Google guarantees the NNN lease (assumes lease or pays a termination fee on Fluidstack default)", backstopProvider:"Google (lease guarantor). Fluidstack = non-IG named tenant; Coatue/Frontier provide equity sponsorship, not lease credit support. The Google guarantee underpins the BB rating.", igStatus:"Non-IG",
+  termination:ND, latePenalties:"Not disclosed (rating docs note cost-overrun recovery up to ~$18M/MW)", delivery:"First 65 MW hall ~Jul 2027; Bldg 1 first hall ~9.5 mo / Bldg 2 ~10.5 mo to floor access",
+  confidence:"High", confRationale:"Confirmed across Latham & Watkins, Cooley, Cahill, S&P, Fitch (BB), Yahoo/LCD, NewProjectMedia. Surfaced in the June 12 evening delta run — announced Apr 16, 2026 but missed by both earlier June 12 scrubs.",
+  sources:[
+    {url:"https://www.cooley.com/news/coverage/2026/2026-04-16-fluidstack-joint-venture-to-issue-5-7-billion-in-senior-secured-notes",title:"Cooley — Fluidstack JV $5.7B senior secured notes (Apr 16, 2026)"},
+    {url:"https://www.lw.com/en/news/latham-advises-on-meridian-arc-holdco-senior-secured-notes-offering-to-finance-ai-data-center",title:"Latham & Watkins — Meridian Arc HoldCo $5.7B notes"},
+    {url:"https://newprojectmedia.com/financingorigination-data-center-start-up-potentia-behind-2-1-gw-indiana-project-now-backed-by-fluidstack-and-google/",title:"NewProjectMedia — Potentia 2.1 GW Indiana, Fluidstack + Google"},
+    {url:"https://finance.yahoo.com/markets/stocks/articles/meridian-arc-inks-5-7b-112514403.html",title:"Yahoo / LCD — Meridian Arc $5.7B 6.25% notes"}]
+},
+{
+  region:"NA", lessor:"Applied Digital", tenantShort:"Unnamed (high-IG hyperscaler)", tenantFull:"Unnamed — \"U.S.-based high investment-grade hyperscaler\" (3rd lease with same customer)",
+  likelyTenant:"Microsoft / Google", likelyRationale:"\"High investment-grade\" wording fits AA-tier credit (MSFT AAA, GOOG AA+, AMZN AA, META AA-), effectively excluding Oracle (BBB). Same customer signed 3 APLD leases totaling 810 MW in under 7 weeks (Apr–Jun 2026) — pace most consistent with Microsoft's 2026 third-party leasing wave. Inference confidence: LOW (under NDA, no leak).",
+  developer:"Applied Digital (self-developed)", city:"Not disclosed", state:"Southern US (new state)", campus:"Delta Forge 2 (5th AI Factory campus)",
+  mw:"210", mwNum:210, itCapacity:"210 MW critical IT", announceDate:"2026-06-08", dealType:"Signed lease (BTS)",
+  tenor:"15 yr + renewals to 30 yr", structure:"Take-or-pay", leaseType:"Rate basis not disclosed (implied ~$138/kW-mo gross, est. — $5.2B ÷ 210,000 kW ÷ 180 mo)",
+  yieldOnCost:ND, buildCost:ND, tcvBase:"$5,200M", tcvRenewals:"~$12,700M (all renewals, 30-yr)",
+  financing:"$550M senior secured revolver announced same day (corporate); campus construction financing TBD",
+  backstop:"None disclosed — tenant is IG", backstopProvider:"N/A (IG tenant)", igStatus:"IG",
+  termination:ND, latePenalties:"Not disclosed in PR — check 8-K exhibit for delivery milestones", delivery:"Initial ops Q1 2028",
+  confidence:"High", confRationale:"Company press release + 8-K filed June 8, 2026; portfolio now 5 campuses / 1.4 GW IT / ~$36B base TCV",
+  sources:[
+    {url:"https://www.globenewswire.com/news-release/2026/06/08/3308459/0/en/applied-digital-signs-210-mw-lease-at-delta-forge-2-expanding-its-ai-factory-franchise-model-to-a-fifth-campus.html",title:"APLD PR — Delta Forge 2 210 MW lease"},
+    {url:"https://www.sec.gov/Archives/edgar/data/0001144879/000114487926000036/apld_deltaforgexprxfinal.htm",title:"APLD Form 8-K (Delta Forge 2)"},
+    {url:"https://www.stocktitan.net/news/APLD/applied-digital-signs-210-mw-lease-at-delta-forge-2-expanding-its-ai-ufsvh3vhk8xc.html",title:"StockTitan — APLD $5.2B lease"}]
+},
+{
+  region:"NA", lessor:"Prime Data Centers", tenantShort:"CoreWeave", tenantFull:"CoreWeave (via Elk Grove Village Property LLC SPV; disclosed through bond offering)",
+  likelyTenant:"—", likelyRationale:"Tenant named in bond documents.",
+  developer:"Prime Data Centers (Macquarie-backed)", city:"Elk Grove Village (Chicago)", state:"IL", campus:"Prime ORD campus, 1600 E Higgins Rd",
+  mw:"est. 50–90", mwNum:70, itCapacity:"Campus 175–270 MW at full build (3 buildings); leased-building MW not disclosed — est. 50–90 MW basis campus ÷ 3", announceDate:"2026-06-02", dealType:"Build-to-suit (fully leased)",
+  tenor:"15 yr + two 7-yr renewals (29 yr max)", structure:"BTS, NNN-like (CoreWeave bears substantially all opex)", leaseType:"Implied ~$147M/yr avg base rent (est. — $2.2B ÷ 15 yr)",
+  yieldOnCost:ND, buildCost:"Campus announced as $1B development (2022)", tcvBase:"~$2,200M", tcvRenewals:"Not disclosed (15-yr base; renewals to 29 yr not priced publicly)",
+  financing:"$850M junk bond (amortizing), Banco Santander sole bookrunner; ~$500M refinances existing debt, rest funds completion",
+  backstop:"Partial — completion guarantee only", backstopProvider:"Prime guarantees construction COMPLETION funds if bond proceeds fall short — NOT a tenant-credit backstop. No NVIDIA/hyperscaler guarantee of CoreWeave rent disclosed; bondholders carry CoreWeave (Ba2/BB+) credit risk. Context: NVIDIA's ~$6.3B capacity backstop order (2025, thru 2032) is indirect portfolio-level support.", igStatus:"Non-IG",
+  termination:ND, latePenalties:ND, delivery:"Under construction; RFS not disclosed",
+  confidence:"Medium", confRationale:"Bloomberg reporting on bond-offering docs (tenor, TCV, opex terms specific); no PR from either party; MW undisclosed",
+  sources:[
+    {url:"https://www.foreignpolicyjournal.com/2026/06/02/coreweave-nasdaq-crwv-linked-data-center-targets-850-million-junk-bond-sale-to-fund-ai-infrastructure/",title:"CoreWeave-linked DC targets $850M bond (citing Bloomberg)"},
+    {url:"https://primedatacenters.com/locations/chicago/",title:"Prime Data Centers — Chicago campus specs"}]
+},
+{
+  region:"NA", lessor:"Applied Digital", tenantShort:"Unnamed (high-IG hyperscaler)", tenantFull:"Unnamed — same \"U.S.-based high investment-grade hyperscaler\" as Delta Forge 1 (2nd lease with customer)",
+  likelyTenant:"Microsoft / Google", likelyRationale:"Same customer as Delta Forge 1 — see that entry. Inference confidence: LOW.",
+  developer:"Applied Digital (self-developed)", city:"Not disclosed", state:"Northern US (est. ND region)", campus:"Polaris Forge 3 (4th AI Factory campus, 600+ acres)",
+  mw:"300", mwNum:300, itCapacity:"300 MW critical IT; ~430 MW grid-connected utility", announceDate:"2026-05-20", dealType:"Signed lease (BTS)",
+  tenor:"15 yr + renewals", structure:"Take-or-pay", leaseType:"Implied ~$139/kW-mo gross (est. — $7.5B ÷ 300,000 kW ÷ 180 mo)",
+  yieldOnCost:ND, buildCost:ND, tcvBase:"$7,500M", tcvRenewals:"~$18,200M (all renewals)",
+  financing:"Not deal-specific; APLD portfolio financing ongoing ($1.59B notes Jun 9 for Polaris Forge 1 Bldg 4; $550M revolver Jun 8)",
+  backstop:"None disclosed — tenant is IG", backstopProvider:"N/A (IG tenant)", igStatus:"IG",
+  termination:ND, latePenalties:ND, delivery:"Initial ops anticipated Aug 2027",
+  confidence:"High", confRationale:"Company PR May 20, 2026 with explicit MW/TCV/structure; pushed APLD past 1 GW contracted",
+  sources:[
+    {url:"https://www.globenewswire.com/news-release/2026/05/20/3298880/0/en/Applied-Digital-Reaches-Significant-Milestone-Surpassing-1-GW-of-Contracted-Capacity-with-U-S-Based-High-Investment-Grade-Hyperscaler-Lease-at-Fourth-Campus-Polaris-Forge-3.html",title:"APLD PR — Polaris Forge 3 lease"},
+    {url:"https://ir.applieddigital.com/news-events/press-releases/detail/152/applied-digital-reaches-significant-milestone-surpassing-1",title:"APLD IR — Polaris Forge 3"}]
+},
+{
+  region:"NA", lessor:"eStruxture Data Centers", tenantShort:"CoreWeave", tenantFull:"CoreWeave — anchor tenant, Phase 1",
+  likelyTenant:"—", likelyRationale:"Tenant named in official press release.",
+  developer:"eStruxture (PSP Investments-backed)", city:"Rocky View County (Calgary)", state:"AB, Canada", campus:"CAL-3 (flagship AI-ready facility)",
+  mw:"Not disclosed (anchor, Ph 1 of 90 MW)", mwNum:0, itCapacity:"90 MW total facility (Tier III, up to 125 kW/rack); CoreWeave share not broken out", announceDate:"2026-05-14", dealType:"Signed lease (anchor)",
+  tenor:ND, structure:"Colocation lease at AI-ready facility", leaseType:ND,
+  yieldOnCost:ND, buildCost:"Part of eStruxture's >C$1B Alberta investment", tcvBase:ND, tcvRenewals:ND,
+  financing:ND, backstop:ND, backstopProvider:"Not disclosed. CoreWeave is non-IG (Ba2/BB+); NVIDIA's ~$6.3B capacity backstop (thru 2032) is indirect portfolio-level support, but no deal-specific guarantee published for CAL-3.", igStatus:"Non-IG",
+  termination:ND, latePenalties:ND, delivery:"CAL-3 online H2 2026",
+  confidence:"High", confRationale:"Official eStruxture PR with named CoreWeave executives; corroborated by DCD",
+  sources:[
+    {url:"https://www.estruxture.com/press-releases/estruxture-announces-coreweave-as-anchor-tenant-for-cal-3-its-landmark-ai-ready-facility-in-alberta",title:"eStruxture PR — CoreWeave anchor at CAL-3"},
+    {url:"https://www.datacenterdynamics.com/en/news/coreweave-signs-on-as-tenant-of-estruxture-data-center-in-calgary-canada/",title:"DCD — CoreWeave signs at eStruxture Calgary"}]
+},
+{
+  region:"NA", lessor:"Hut 8 (Beacon Point DC LLC)", tenantShort:"Unnamed (high-IG)", tenantFull:"Undisclosed \"confidential, high-investment-grade company\" — AI training + inference",
+  likelyTenant:"Microsoft / AWS / Meta", likelyRationale:"Direct high-IG lease with NO backstop (contrast: Hut 8's River Bend needed a Google backstop for Fluidstack) implies an AA-tier hyperscaler itself. NVIDIA DSX reference architecture; Gulf Coast TX is an emerging MSFT/AWS zone. Blockspace/analyst chatter floats Meta or Amazon. Inference confidence: LOW.",
+  developer:"Hut 8 (EPCM Jacobs; Vertiv infra; AEP Texas utility; NVIDIA tech partner)", city:"Robstown / Corpus Christi", state:"TX (Nueces Co.)", campus:"Beacon Point — Phase 1 of 1 GW campus (525 acres)",
+  mw:"352", mwNum:352, itCapacity:"352 MW IT (~500 MW utility Ph 1; campus to 1,000 MW; phase upsized 57% from 224 MW)", announceDate:"2026-05-06", dealType:"Signed lease (BTS, first-phase commercialization)",
+  tenor:"15 yr + three 5-yr renewals (30 yr max)", structure:"NNN, take-or-pay, 3.0% annual escalator", leaseType:"Yield/NOI framing: $9.8B cumulative NOI base term; ~$655M avg annual NOI ≈ est. $155/kW-mo NOI-equivalent (derived, not quoted)",
+  yieldOnCost:ND, buildCost:"est. $8–10B+ Phase 1 (basis: $4.25B notes + equity; labeled est.)", tcvBase:"$9,800M", tcvRenewals:"~$25,100M (all renewals)",
+  financing:"$4.25B INVESTMENT-GRADE senior secured notes (Beacon Point DC LLC), 6.129% coupon, due Nov 2042",
+  backstop:"None — tenant itself is the IG credit", backstopProvider:"N/A (IG tenant)", igStatus:"IG",
+  termination:"NONE — explicitly no early termination rights", latePenalties:ND, delivery:"Energization Q1 2027; first data hall Q3 2027; 1 GW interconnection agreement executed",
+  confidence:"High", confRationale:"Company PR + rated note offering; stock +30% on news; deal terms hard, tenant identity LOW",
+  sources:[
+    {url:"https://www.prnewswire.com/news-releases/hut-8-commercializes-first-phase-of-1-gw-beacon-point-ai-data-center-campus-with-15-year-352-mw-it-lease-with-base-term-contract-value-of-9-8-billion-302763484.html",title:"Hut 8 PR — Beacon Point 352 MW / $9.8B"},
+    {url:"https://www.stocktitan.net/news/HUT/hut-8-announces-pricing-of-4-25-billion-of-investment-grade-senior-g1ri0cm9xsc4.html",title:"Hut 8 — $4.25B IG notes pricing"},
+    {url:"https://www.datacenterdynamics.com/en/news/hut-8-signs-352mw-data-center-lease-in-texas-with-investment-grade-tenant/",title:"DCD — Hut 8 352 MW lease"}]
+},
+{
+  region:"NA", lessor:"SPV (TBD) / Meta self-developed", tenantShort:"Meta", tenantFull:"Meta Platforms — lessee under SPV project-lease financing (codename \"Sopaipilla\")",
+  likelyTenant:"—", likelyRationale:"Meta named as lessee in financing mandate reporting.",
+  developer:"Meta (construction-managed; campus moved into SPV lease structure per Hyperion/Beignet template)", city:"El Paso", state:"TX", campus:"Meta El Paso AI campus (~1 GW)",
+  mw:"~1,000 (campus)", mwNum:1000, itCapacity:"est. 700–850 MW IT on 1 GW campus power (est., typical PUE basis)", announceDate:"2026-05-05 (financing mandate reported)", dealType:"BTS / SPV lease financing",
+  tenor:"Not disclosed (Hyperion precedent: 4-yr initial terms extendable ~20 yr — precedent, not confirmed)", structure:"Project-level debt against capacity leased to Meta; mostly debt + small equity; capital-markets distribution", leaseType:"Yield-based project lease; rates not disclosed",
+  yieldOnCost:ND, buildCost:">$10B total campus investment (Meta statement, raised Mar 2026); financing package ~$13B", tcvBase:ND, tcvRenewals:ND,
+  financing:"~$13B arranged by Morgan Stanley + JPMorgan — among largest single-site digital-infra financings ever; not closed as of Jun 2026",
+  backstop:"Not disclosed (Hyperion precedent: Meta residual-value guarantee up to ~$28B/16 yr — NOT yet confirmed for El Paso)", backstopProvider:"N/A (IG tenant)", igStatus:"IG",
+  termination:ND, latePenalties:ND, delivery:"Campus online 2028",
+  confidence:"Medium", confRationale:"Multiple credible outlets corroborate $13B mandate + lease-to-Meta structure; financing not closed, lease terms undisclosed",
+  sources:[
+    {url:"https://thenextweb.com/news/meta-el-paso-13-billion-data-center-financing",title:"Meta raising $13B for El Paso DC"},
+    {url:"https://www.cryptopolitan.com/meta-13b-texas-data-center-financing/",title:"Meta taps MS/JPM for $13B financing"},
+    {url:"https://pestakeholder.org/news/jpmorgans-dual-role-at-el-paso-electric-meta-el-paso-data-center/",title:"PESP — JPMorgan dual role El Paso"}]
+},
+{
+  region:"NA", lessor:"Applied Digital", tenantShort:"Unnamed (high-IG hyperscaler)", tenantFull:"Unnamed — \"U.S.-based high investment-grade hyperscaler\" (new customer; APLD's 2nd IG hyperscaler)",
+  likelyTenant:"Microsoft / Google", likelyRationale:"CEO Wes Cummins publicly stated APLD's pool is the five US hyperscalers (MSFT, Meta, Oracle, AMZN, GOOG). \"HIGH investment-grade\" points to AA-tier, excluding Oracle (BBB). Inference confidence: LOW.",
+  developer:"Applied Digital (self-developed)", city:"Boyce / Alexandria (Rapides Parish)", state:"LA", campus:"Delta Forge 1 (430 MW campus, >500 acres; $3.6B campus per Louisiana LED)",
+  mw:"300", mwNum:300, itCapacity:"300 MW critical IT leased; campus designed 430 MW", announceDate:"2026-04-23", dealType:"Signed lease (BTS, new tenant)",
+  tenor:"~15 yr (renewals not detailed)", structure:"Take-or-pay", leaseType:"Implied ~$139/kW-mo gross (est. — $7.5B ÷ 300,000 kW ÷ 180 mo)",
+  yieldOnCost:ND, buildCost:"$3.6B campus investment (Louisiana LED)", tcvBase:"~$7,500M", tcvRenewals:ND,
+  financing:"Concurrent: two $300M senior secured facilities (bridge for Polaris Forge 1 Bldg 3 + corporate revolver) — not campus-specific",
+  backstop:"None disclosed — tenant is IG", backstopProvider:"N/A (IG tenant)", igStatus:"IG",
+  termination:ND, latePenalties:ND, delivery:"Initial ops mid-2027 (groundbreak Jan 2026)",
+  confidence:"High", confRationale:"Company PR + 8-K Apr 23, 2026; took APLD contracted revenue past $23B",
+  sources:[
+    {url:"https://www.globenewswire.com/news-release/2026/04/23/3279814/0/en/Applied-Digital-Announces-New-U-S-Based-High-Investment-Grade-Hyperscaler-Tenant-at-Delta-Forge-1-a-430-MW-AI-Factory-Campus.html",title:"APLD PR — Delta Forge 1 tenant"},
+    {url:"https://www.opportunitylouisiana.gov/news/central-louisiana-secures-3-6-billion-applied-digital-ai-factory-campus",title:"Louisiana LED — $3.6B Delta Forge 1"},
+    {url:"https://www.streetinsider.com/Reuters/Applied+Digital+signs+$7.5+billion+AI+data+center+lease+with+US+hyperscaler/26356308.html",title:"Reuters — APLD $7.5B lease"}]
+},
+{
+  region:"NA", lessor:"DataBank", tenantShort:"Oracle (reported)", tenantFull:"Oracle — reported via Business Insider citing Texas comptroller tax-exemption filings; unconfirmed by either party",
+  likelyTenant:"Oracle (reported)", likelyRationale:"Documentary basis (state tax filings) rather than speculation; neither party has confirmed.",
+  developer:"DataBank", city:"Red Oak (Dallas metro)", state:"TX (Ellis Co.)", campus:"Red Oak campus, 292 acres — DFW9/10/11 (first 3 of 8 bldgs); Oracle also reported for 4th",
+  mw:"180 (first 3 bldgs)", mwNum:180, itCapacity:"480 MW full campus (gross)", announceDate:"2026-04-21 (pre-leasing disclosed at financing close)", dealType:"Pre-leased BTS / wholesale",
+  tenor:ND, structure:"Wholesale BTS; facilities \"already leased\" pre-financing", leaseType:ND,
+  yieldOnCost:ND, buildCost:"~$2,000M first 3 bldgs (est. — basis: construction loan size)", tcvBase:ND, tcvRenewals:ND,
+  financing:"$2.0B construction loan (Apr 21, 2026) — MUFG admin agent/sole bookrunner + digital-infra lender group; DataBank's largest ever; green financing framework",
+  backstop:"None disclosed", backstopProvider:"N/A — Oracle is IG (BBB/Baa2), though note Oracle carries $248B undiscounted future DC lease commitments (Dec 2025 10-Q)", igStatus:"IG",
+  termination:ND, latePenalties:ND, delivery:"First building operational before YE 2026 (~18-mo accelerated)",
+  confidence:"Medium", confRationale:"Financing + pre-leasing are hard facts (DataBank announcement); Oracle identity rests on tax-record reporting",
+  sources:[
+    {url:"https://dallasinnovates.com/databank-snags-2b-loan-to-build-first-3-of-8-data-centers-south-of-dallas/",title:"Dallas Innovates — DataBank $2B Red Oak loan"},
+    {url:"https://www.datacenterdynamics.com/en/news/databank-announces-480mw-campus-in-dallas-texas/",title:"DCD — DataBank 480 MW Dallas campus"}]
+},
+{
+  region:"NA", lessor:"Crusoe", tenantShort:"Microsoft", tenantFull:"Microsoft (named in Crusoe announcement) — capacity originally planned for Oracle/OpenAI Stargate expansion, which they exited Mar 6, 2026",
+  likelyTenant:"—", likelyRationale:"Tenant named by lessor.",
+  developer:"Crusoe", city:"Abilene", state:"TX", campus:"New dedicated 900 MW AI factory campus adjacent to Stargate flagship (site total projected 2.1 GW)",
+  mw:"900 (campus power)", mwNum:900, itCapacity:"IT-load split not disclosed; Bloomberg initially reported ~700 MW", announceDate:"2026-03-24 (Bloomberg) / 03-27 (Crusoe PR)", dealType:"Signed lease / BTS (2 buildings + onsite 900 MW gas power plant)",
+  tenor:ND, structure:"BTS capacity lease; terms not disclosed", leaseType:ND,
+  yieldOnCost:ND, buildCost:ND, tcvBase:ND, tcvRenewals:ND,
+  financing:"Not disclosed for MSFT buildings. Context: prior Abilene phases financed via $11.6B Crusoe JV (Blue Owl/Primary Digital, JPMorgan-led debt)",
+  backstop:"N/A — Microsoft AAA credit", backstopProvider:"N/A (IG tenant)", igStatus:"IG",
+  termination:ND, latePenalties:ND, delivery:"First building energized mid-2027",
+  confidence:"High", confRationale:"Crusoe PR names Microsoft; Bloomberg + The Information corroborate; construction underway. Economics undisclosed (private co.)",
+  sources:[
+    {url:"https://www.globenewswire.com/news-release/2026/03/27/3263786/0/en/crusoe-announces-new-900-mw-ai-factory-campus-in-abilene-texas-to-support-microsoft-ai-infrastructure.html",title:"Crusoe PR — 900 MW Abilene campus for Microsoft"},
+    {url:"https://www.bloomberg.com/news/articles/2026-03-24/microsoft-to-rent-texas-data-center-dropped-by-oracle-openai",title:"Bloomberg — Microsoft rents DC dropped by Oracle/OpenAI"},
+    {url:"https://www.datacenterknowledge.com/build-design/crusoe-expands-abilene-ai-campus-with-new-900mw-ai-factory-for-microsoft",title:"DCK — Crusoe/Microsoft Abilene"}]
+},
+{
+  region:"NA", lessor:"Cipher Mining (Cipher Digital)", tenantShort:"Unnamed (IG hyperscaler)", tenantFull:"Unnamed \"investment-grade Hyperscale tenant\" — Cipher's 3rd AI campus lease",
+  likelyTenant:"Meta / Microsoft", likelyRationale:"Press speculation (Byron Street Research et al.) names Meta or Microsoft; site believed to be Stingray (~100 MW, West TX). Cipher's first two tenants were AWS (direct) and Fluidstack/Google-backstopped — a third distinct IG logo suggested. \"Investment-grade\" without \"high\" keeps Oracle plausible. Inference confidence: LOW.",
+  developer:"Cipher Digital (self-developed)", city:"Not disclosed (believed Stingray, West TX)", state:"TX (est.)", campus:"3rd HPC campus at existing Cipher site (speculation: Stingray ~100 MW)",
+  mw:"est. ~100 (if Stingray)", mwNum:100, itCapacity:ND, announceDate:"2026-03-25", dealType:"Signed lease (BTS at existing site)",
+  tenor:"15 yr (renewals not disclosed)", structure:"Develop-and-deliver, long-term lease", leaseType:ND,
+  yieldOnCost:ND, buildCost:ND, tcvBase:"est. ~$2,100M (by subtraction: $11.4B total contracted vs ~$9.3B prior deals — rough, treat with caution)", tcvRenewals:ND,
+  financing:"Concurrent $200M syndicated revolver + $50M accordion (SOFR+1.25–1.75%, Mar 2030); Morgan Stanley lead; Santander, Goldman, JPM, SMBC, Wells Fargo syndicate",
+  backstop:"None disclosed — IG tenant direct", backstopProvider:"N/A (IG tenant)", igStatus:"IG",
+  termination:ND, latePenalties:ND, delivery:ND,
+  confidence:"Medium", confRationale:"Definitive 15-yr lease signed + bank syndicate committed, but MW/TCV/site/tenant all undisclosed",
+  sources:[
+    {url:"https://www.stocktitan.net/news/CIFR/cipher-digital-announces-business-3492p4gfkf76.html",title:"Cipher Digital — 15-yr lease + $200M facility"},
+    {url:"https://www.datacenterdynamics.com/en/news/cipher-digital-secures-hyperscale-tenant-under-15-year-lease/",title:"DCD — Cipher 15-yr hyperscale lease"}]
+},
+{
+  region:"NA", lessor:"Tract Capital (Fleet Data Centers)", tenantShort:"NVIDIA (reported)", tenantFull:"NVIDIA — reported lessee (Bloomberg/DCD via bond marketing docs); not formally confirmed by NVIDIA or Tract",
+  likelyTenant:"NVIDIA (reported)", likelyRationale:"Lease terms (16-yr initial, two 10-yr extensions) specific enough to anchor a completed $3.8B bond pricing with ~$14B order book — functionally a committed lease disclosed via financing docs.",
+  developer:"Tract Capital / Fleet Data Centers (single-user 500 MW+ campuses; SV RNO Property Owner 1)", city:"Storey County (Reno / TRIC)", state:"NV", campus:"Fleet single-user campus — 200 MW DC + substation",
+  mw:"200", mwNum:200, itCapacity:"200 MW critical IT (per Bloomberg)", announceDate:"2026-02-12 (Bloomberg; bond priced that week)", dealType:"Signed lease (reported via bond), single-tenant BTS",
+  tenor:"16 yr + two 10-yr renewals (36 yr max)", structure:"BTS single-tenant; take-or-pay/NNN detail not disclosed", leaseType:ND,
+  yieldOnCost:ND, buildCost:"est. ~$4.4B+ (basis: $3.8B bond + ~$620M Fleet I equity)", tcvBase:ND, tcvRenewals:ND,
+  financing:"$3.8B high-yield bond (~6% yield, upsized $150M on demand, ~$14B orders); JPMorgan + Morgan Stanley led; ~$620M Tract Fleet I equity",
+  backstop:"No — NVIDIA (AA-tier) is the credit; bond repayment relies on NVIDIA lease payments", backstopProvider:"N/A (IG tenant)", igStatus:"IG",
+  termination:ND, latePenalties:ND, delivery:"Construction in progress (bond-funded)",
+  confidence:"Medium", confRationale:"Bloomberg + DCD report NVIDIA with specific terms; neither party has formally confirmed",
+  sources:[
+    {url:"https://www.bloomberg.com/news/articles/2026-02-12/nvidia-to-lease-data-center-funded-by-3-8-billion-of-junk-bonds",title:"Bloomberg — NVIDIA to lease $3.8B bond-funded DC"},
+    {url:"https://www.datacenterdynamics.com/en/news/nvidia-to-lease-junk-bond-backed-tract-capital-data-center-in-reno-nevada-report/",title:"DCD — NVIDIA / Tract Reno"}]
+},
+{
+  region:"NA", lessor:"BorderPlex Digital Assets / STACK Infrastructure", tenantShort:"Oracle", tenantFull:"Oracle — confirmed tenant (OCI capacity hosting OpenAI Stargate workloads); site unveiled Sept 2025, Oracle tenancy confirmed Jan 23, 2026",
+  likelyTenant:"—", likelyRationale:"Oracle confirmed by its own announcement.",
+  developer:"STACK Infrastructure + BorderPlex Digital Assets", city:"Santa Teresa (Doña Ana Co.)", state:"NM", campus:"Project Jupiter (~1,400 acres, 4 bldgs, microgrid + gas gen + BESS + desalination)",
+  mw:"Not disclosed (GW-class)", mwNum:0, itCapacity:"Not disclosed — part of Stargate 4.5 GW Oracle-OpenAI expansion", announceDate:"2026-01-23 (Oracle tenancy confirmation)", dealType:"BTS lease (Stargate program)",
+  tenor:"Not disclosed (Oracle aggregate DC leases run 15–19 yr per 10-Q)", structure:"BTS within Stargate; SPV-style development", leaseType:ND,
+  yieldOnCost:ND, buildCost:"Up to $165B total multi-phase project investment cited by developers (ceiling, not committed)", tcvBase:ND, tcvRenewals:ND,
+  financing:"Doña Ana County IRBs up to $165B approved (tax-abatement SPV; county nominally holds title); Bloom Energy fuel-cell power deal Apr 27, 2026. Oracle credit: $248B undiscounted future DC lease commitments (Dec 2025 10-Q), BBB/Baa2",
+  backstop:"Not disclosed — IRB structure is tax abatement, not credit support", backstopProvider:"N/A — but NOTE: Oracle BBB is lowest-rated IG on tracked list; its $248B lease book is the sector's biggest credit watch item", igStatus:"IG",
+  termination:ND, latePenalties:ND, delivery:"Construction underway 2026; phased delivery unscheduled",
+  confidence:"Medium", confRationale:"Oracle tenancy self-confirmed (Jan + Apr 2026 announcements) but lease economics entirely undisclosed; site originally designated 2025",
+  sources:[
+    {url:"https://www.oracle.com/news/announcement/blog/oracle-advances-american-ai-innovation-in-new-mexico-2026-01-23/",title:"Oracle — New Mexico announcement (Jan 23, 2026)"},
+    {url:"https://www.oracle.com/news/announcement/oracle-borderplex-and-bloom-energy-to-power-project-jupiter-with-fuel-cell-technology-2026-04-27/",title:"Oracle/BorderPlex/Bloom — Project Jupiter power"},
+    {url:"https://www.datacenterdynamics.com/en/news/oracle-revealed-as-tenant-of-project-jupiter-data-center-campus-in-new-mexico/",title:"DCD — Oracle revealed as Jupiter tenant"}]
+},
+{
+  region:"NA", lessor:"PowerHouse Data Centers / AREP", tenantShort:"Unnamed (hyperscaler)", tenantFull:"Unnamed hyperscale operator — \"long-term hyperscale lease\"",
+  likelyTenant:"AWS / Microsoft", likelyRationale:"Loudoun County leasing dominated by AWS + Microsoft; PowerHouse/AREP NoVA pipeline historically targets big-three cloud. Two-story 615k sq ft Tier III+/IV GPU/liquid-cooled spec fits cloud+AI hybrid. No identification or speculation found. Inference confidence: LOW.",
+  developer:"PowerHouse / American Real Estate Partners (AREP Strategic Opportunity Fund III)", city:"Arcola (Loudoun Co.)", state:"VA", campus:"PowerHouse Arcola (37 acres, 2 two-story bldgs, 615,000 sq ft)",
+  mw:"Not disclosed (campus to 120 MW)", mwNum:0, itCapacity:ND, announceDate:"2026-01-15", dealType:"Signed lease (long-term)",
+  tenor:"Long-term; not disclosed", structure:ND, leaseType:ND,
+  yieldOnCost:ND, buildCost:ND, tcvBase:ND, tcvRenewals:ND,
+  financing:"AREP Fund III equity; project debt not disclosed",
+  backstop:ND, backstopProvider:"Unknown — tenant unidentified", igStatus:"IG",
+  termination:ND, latePenalties:ND, delivery:"Power delivery 2026/2027",
+  confidence:"Medium", confRationale:"Executed lease per developer PR + DCD, but no MW/tenor/economics; private developer, no SEC trail",
+  sources:[
+    {url:"https://www.prnewswire.com/news-releases/powerhouse-data-centers-executes-hyperscale-lease-at-powerhouse-arcola-advancing-northern-virginia-expansion-302661927.html",title:"PowerHouse PR — Arcola hyperscale lease"},
+    {url:"https://www.datacenterdynamics.com/en/news/powerhouse-data-centers-leases-data-center-to-unnamed-hyperscaler-at-arcola-campus-in-virginia/",title:"DCD — PowerHouse Arcola unnamed hyperscaler"}]
+},
+{
+  region:"NA", lessor:"Cloud Capital / Arcapita JV", tenantShort:"Nebius", tenantFull:"Nebius — anchor tenant; PR describes facility as 'primarily leased on a long-term basis to a leading provider of sovereign AI and cloud inferencing solutions'",
+  likelyTenant:"\u2014", likelyRationale:"Tenant confirmed by lessor PR (Jan 14, 2026) and Nebius Q4'25 shareholder letter (Feb 12, 2026) listing Minnesota among nine new sites.",
+  developer:"N/A (existing facility — former IDS/Ameriprise Operations Center, built 1988, renovated 2004)", city:"Minneapolis", state:"MN", campus:"1001 3rd Ave S (Tier III Enhanced, ~473,000 sq ft)",
+  mw:"21 (\u2192 ~31 planned)", mwNum:21, itCapacity:"21 MW stabilized; JV plans expansion to ~31 MW", announceDate:"2026-01-14", dealType:"Signed lease (anchor, existing facility)",
+  tenor:"'Long-term' \u2014 yrs not disclosed", structure:ND, leaseType:ND,
+  yieldOnCost:ND, buildCost:ND, tcvBase:ND, tcvRenewals:ND,
+  financing:"Asset acquired by Cloud Capital Fund III + Arcapita institutional equity; price not disclosed",
+  backstop:"None disclosed", backstopProvider:"None disclosed. Nebius is non-IG; corporate-level support = $3.7B cash (Q4'25) + Microsoft/Meta offtake contracts. No lease-specific guarantee announced.", igStatus:"Non-IG",
+  termination:ND, latePenalties:"N/A \u2014 facility already operating", delivery:"Active compute Q1\u2013Q2 2026; full ~31 MW utilization expected 2027",
+  confidence:"Medium", confRationale:"Lease + anchor tenancy confirmed by lessor PR and Nebius 6-K, but all economics undisclosed; lease may have been signed late 2025 (announced 2026). NEWLY IN SCOPE June 12 (tenant-list expansion), not a fresh announcement.",
+  sources:[
+    {url:"https://www.prnewswire.com/news-releases/cloud-capital-and-arcapita-acquire-a-21-megawatt-data-center-in-the-us-with-planned-expansion-302661190.html",title:"Cloud Capital/Arcapita PR \u2014 21 MW Minneapolis acquisition + Nebius lease"},
+    {url:"https://www.sec.gov/Archives/edgar/data/0001513845/000110465926013946/tm266173d1_ex99-2.htm",title:"Nebius Q4 2025 shareholder letter (6-K) \u2014 nine new sites incl. Minnesota"},
+    {url:"https://www.datacenterdynamics.com/en/news/cloud-capital-and-bahrain-asset-manager-arcapita-acquire-data-center-in-minneapolis-minnesota/",title:"DCD \u2014 Cloud Capital/Arcapita Minneapolis"}]
+},
+{
+  region:"NA", lessor:"Not disclosed (Oklahoma operator)", tenantShort:"Nebius", tenantFull:"Nebius \u2014 Oklahoma site grouped with its colocation-style expansion (vs owned MO/AL/PA builds)",
+  likelyTenant:"\u2014", likelyRationale:"Site confirmed by Nebius shareholder letter; lease-vs-own inferred from Nebius's stated colocation expansion model.",
+  developer:ND, city:"Not disclosed (possibly Tulsa metro \u2014 unverified)", state:"OK", campus:ND,
+  mw:"n/d (~100 est., unverified)", mwNum:0, itCapacity:ND, announceDate:"2026-02-12", dealType:"Colocation / BTS lease (inferred)",
+  tenor:ND, structure:ND, leaseType:ND,
+  yieldOnCost:ND, buildCost:ND, tcvBase:ND, tcvRenewals:ND,
+  financing:ND, backstop:ND, backstopProvider:"Not disclosed \u2014 Nebius non-IG; no site-level credit detail public", igStatus:"Non-IG",
+  termination:ND, latePenalties:ND, delivery:"Part of Nebius plan for 16 global sites / 800 MW\u20131 GW connected power by end-2026",
+  confidence:"Low", confRationale:"Existence confirmed only via shareholder-letter state list + third-party inventory (Aterio); lessor, MW, location and all terms unverified. NEWLY IN SCOPE June 12.",
+  sources:[
+    {url:"https://www.sec.gov/Archives/edgar/data/0001513845/000110465926013946/tm266173d1_ex99-2.htm",title:"Nebius Q4 2025 shareholder letter (Feb 12, 2026)"},
+    {url:"https://www.aterio.io/insights/us-data-centers/dc/nebius-94079-ok",title:"Aterio \u2014 Nebius Oklahoma inventory entry"}]
+},
+{
+  region:"NA", lessor:"RadiusDC", tenantShort:"phoenixNAP", tenantFull:"phoenixNAP \u2014 sells its Phoenix DC + colocation business to RadiusDC and remains in the facility as a tenant (retains ~80% of business: Bare Metal Cloud, network services)",
+  likelyTenant:"\u2014", likelyRationale:"Tenancy explicitly confirmed in the Mar 12, 2026 joint release.",
+  developer:"RadiusDC (acquired campus development rights; will develop DC2/PHX02)", city:"Phoenix", state:"AZ", campus:"3221 E. Elwood St (DC1/PHX01 expanding to 8 MW IT; DC2 up to 18 MW planned; ~26 MW campus potential)",
+  mw:"n/d (tenant share)", mwNum:0, itCapacity:"DC1 8 MW IT post-expansion (campus-level); phoenixNAP share not disclosed", announceDate:"2026-03-12", dealType:"Sale-leaseback (colocation tenancy)",
+  tenor:ND, structure:ND, leaseType:"Colocation tenancy post-closing",
+  yieldOnCost:ND, buildCost:ND, tcvBase:ND, tcvRenewals:ND,
+  financing:"Acquisition price n/d. Advisors: J.P. Morgan (RadiusDC), BofA Securities (phoenixNAP)",
+  backstop:ND, backstopProvider:"Not disclosed \u2014 phoenixNAP is non-IG; no credit-support detail public", igStatus:"Non-IG",
+  termination:ND, latePenalties:ND, delivery:"Transaction close expected Q2 2026; DC2 initial phases online H1 2028",
+  confidence:"Medium", confRationale:"Tenancy confirmed in joint PR but all lease economics undisclosed; primarily an M&A transaction with a leaseback element. NEWLY IN SCOPE June 12.",
+  sources:[
+    {url:"https://www.prnewswire.com/news-releases/radiusdc-to-acquire-phoenixnaps-phoenix-data-center-and-colocation-business-302711634.html",title:"RadiusDC/phoenixNAP PR \u2014 acquisition + tenancy"},
+    {url:"https://www.clearygottlieb.com/news-and-insights/news-listing/phoenixnap-to-sell-data-center-and-colocation-business-to-radiusdc",title:"Cleary Gottlieb \u2014 phoenixNAP sale to RadiusDC"}]
+},
+{
+  region:"EMEA",
+  lessor:"Nscale", tenantShort:"Microsoft", tenantFull:"Microsoft — took over former 'Stargate Norway' capacity from OpenAI",
+  likelyTenant:"—", likelyRationale:"Tenant named.",
+  developer:"Nscale", city:"Narvik (Kvandal)", state:"Norway", campus:"Narvik AI campus (~230 MW, hydro)",
+  mw:"210", mwNum:210, itCapacity:"~230 MW campus", announceDate:"2026-04", dealType:"Lease / AI-compute offtake (5-yr, ~$6B)",
+  tenor:"5 yr", structure:"Capacity hosting", leaseType:ND, yieldOnCost:ND, buildCost:ND, tcvBase:"~$6,000M (offtake)", tcvRenewals:ND,
+  financing:ND, backstop:ND, backstopProvider:ND, igStatus:"IG", termination:ND, latePenalties:ND, delivery:"30,000+ NVIDIA Rubin GPUs; ramps 2026-27",
+  confidence:"High", confRationale:"Microsoft + Nscale press + CNBC; MSFT stepped in for OpenAI.",
+  sources:[{url:"https://www.datacenterdynamics.com/en/news/microsoft-signs-6bn-deal-to-rent-ai-compute-from-nscale/",title:"DCD — Microsoft $6B Nscale"},{url:"https://www.nscale.com/press-releases/nscale-microsoft-norway",title:"Nscale — Microsoft Norway"}]
+},
+{
+  region:"EMEA",
+  lessor:"Start Campus", tenantShort:"Microsoft", tenantFull:"Microsoft (via Nscale — 66,000+ NVIDIA Rubin GPUs)",
+  likelyTenant:"—", likelyRationale:"Tenant named.",
+  developer:"Nscale", city:"Sines", state:"Portugal", campus:"SINES Data Campus — 2nd building (200 MW, ocean-cooled)",
+  mw:"200", mwNum:200, itCapacity:"200 MW (2nd building)", announceDate:"2026-05-05", dealType:"Lease / hosting (BTS building)",
+  tenor:ND, structure:"BTS hosting", leaseType:ND, yieldOnCost:ND, buildCost:"~€695M (€465M bldg + €230M shared infra)", tcvBase:ND, tcvRenewals:ND,
+  financing:ND, backstop:ND, backstopProvider:ND, igStatus:"IG", termination:ND, latePenalties:ND, delivery:"GPUs from late 2027; 100% renewable",
+  confidence:"High", confRationale:"Nscale + Start Campus press; exact 200 MW match.",
+  sources:[{url:"https://www.nscale.com/press-releases/nscale-start-campus",title:"Nscale — Start Campus Portugal"},{url:"https://www.hpcwire.com/off-the-wire/nscale-to-deliver-66000-nvidia-rubin-gpus-to-microsoft-at-start-campus-site-in-portugal/",title:"HPCwire — Start Campus"}]
+},
+{
+  region:"EMEA",
+  lessor:"Bitzero", tenantShort:"OneQode", tenantFull:"OneQode (15-yr binding letter, ~$2.6B contracted revenue)",
+  likelyTenant:"—", likelyRationale:"Tenant named.",
+  developer:"Bitzero", city:"NO4 zone (Northern Norway)", state:"Norway", campus:"Bitzero Norway AI site (hydro)",
+  mw:"110", mwNum:110, itCapacity:"110 MW", announceDate:"2026-05-05", dealType:"Lease (15-yr, binding LOI)",
+  tenor:"15 yr", structure:"Lease", leaseType:ND, yieldOnCost:ND, buildCost:ND, tcvBase:"~$2,600M", tcvRenewals:ND,
+  financing:ND, backstop:ND, backstopProvider:ND, igStatus:"Non-IG", termination:ND, latePenalties:ND, delivery:"Commissioning H1 2027; phased GPU rollout",
+  confidence:"High", confRationale:"Binding-letter press release; exact 110 MW match (binding LOI, not yet definitive).",
+  sources:[{url:"https://www.tradingview.com/news/tmx_newsfile:4a54f6258094b:0-bitzero-and-oneqode-sign-binding-letter-for-110mw-15-year-lease-for-ai-deployment-at-norway-site/",title:"Bitzero/OneQode — 110 MW binding letter"}]
+},
+{
+  region:"EMEA",
+  lessor:"MERLIN Properties (Edged)", tenantShort:"CoreWeave", tenantFull:"CoreWeave (~18 MW Álava; ~39 MW total incl. Barcelona)",
+  likelyTenant:"—", likelyRationale:"Tenant named.",
+  developer:"MERLIN", city:"Álava (Arasur)", state:"Spain", campus:"Álava DC (largest in Spain) + Barcelona",
+  mw:"18", mwNum:18, itCapacity:"~18 MW Álava (39 MW total)", announceDate:"2026", dealType:"Lease (colo/wholesale)",
+  tenor:ND, structure:"Colo lease", leaseType:ND, yieldOnCost:ND, buildCost:ND, tcvBase:ND, tcvRenewals:ND,
+  financing:"~€56M/yr revenue to MERLIN", backstop:ND, backstopProvider:"CoreWeave non-IG; no deal-specific backstop disclosed", igStatus:"Non-IG", termination:ND, latePenalties:ND, delivery:"Barcelona live (May 2025); Álava + Barcelona expansion 2026",
+  confidence:"High", confRationale:"MERLIN + DCD + Spanish press; Álava is the 2026 component.",
+  sources:[{url:"https://www.datacenterdynamics.com/en/news/merlin-edged-launches-barcelona-data-center-coreweave-to-take-15mw/",title:"DCD — Merlin Edged / CoreWeave"}]
+},
+{
+  region:"EMEA",
+  lessor:"Segro", tenantShort:"Unnamed (Virtus/STT per slide)", tenantFull:"Unnamed 'existing customer' (slide attributes Virtus/STT)",
+  likelyTenant:"Virtus / STT", likelyRationale:"Public release said 'an existing customer'; slide attributes Virtus/STT. Inference: MEDIUM.",
+  developer:"Segro", city:"Slough", state:"United Kingdom", campus:"Slough Trading Estate — powered shell (30,000 sqm, 50 MVA)",
+  mw:"30–50", mwNum:50, itCapacity:"~50 MVA", announceDate:"2026-03-16", dealType:"Powered shell (pre-lease BTS)",
+  tenor:ND, structure:"Powered shell", leaseType:ND, yieldOnCost:ND, buildCost:ND, tcvBase:ND, tcvRenewals:ND,
+  financing:"Customer contracts power directly", backstop:ND, backstopProvider:ND, igStatus:"IG", termination:ND, latePenalties:ND, delivery:ND,
+  confidence:"Medium", confRationale:"Segro RNS confirms 50 MW powered shell; tenant unnamed (slide attribution).",
+  sources:[{url:"https://www.actusnews.com/en/amp/segro-plc/pr/2026/03/16/data-centre-update",title:"Segro — Data Centre Update (Mar 16, 2026)"}]
+},
+{
+  region:"EMEA",
+  lessor:"EdgeConneX", tenantShort:"Unnamed (MSFT/AWS per slide)", tenantFull:"Unnamed hyperscaler(s) — slide attributes Microsoft/AWS; not publicly named",
+  likelyTenant:"Microsoft / AWS", likelyRationale:"Slide attribution only; no public source names the tenant. Inference: LOW.",
+  developer:"EdgeConneX (EQT)", city:"Skellefteå", state:"Sweden", campus:"Skellefteå campus (former Lyten site; up to ~1 GW)",
+  mw:"900", mwNum:900, itCapacity:"up to ~1 GW (campus)", announceDate:"2026-02-27", dealType:"Powered shell / campus build",
+  tenor:ND, structure:"Campus development", leaseType:ND, yieldOnCost:ND, buildCost:ND, tcvBase:ND, tcvRenewals:ND,
+  financing:ND, backstop:ND, backstopProvider:ND, igStatus:"IG", termination:ND, latePenalties:ND, delivery:"Renewable-powered; phased",
+  confidence:"Medium", confRationale:"DCD + EdgeConneX press confirm the ~1 GW campus; hyperscale tenant NOT publicly confirmed (slide intel).",
+  sources:[{url:"https://www.datacenterdynamics.com/en/news/edgeconnex-targets-gigawatt-scale-campus-in-sweden/",title:"DCD — EdgeConneX Sweden ~1 GW"}]
+},
+{
+  region:"EMEA",
+  lessor:"Kao Data", tenantShort:"Nebius", tenantFull:"Nebius (10-yr, 22 MW; part of ~£1.7B UK pledge)",
+  likelyTenant:"—", likelyRationale:"Tenant named.",
+  developer:"Kao Data", city:"Harlow (Greater London)", state:"United Kingdom", campus:"Harlow campus",
+  mw:"22", mwNum:22, itCapacity:"22 MW", announceDate:"2026", dealType:"Lease (10-yr)",
+  tenor:"10 yr", structure:"Colo lease", leaseType:ND, yieldOnCost:ND, buildCost:ND, tcvBase:ND, tcvRenewals:ND,
+  financing:ND, backstop:ND, backstopProvider:"Nebius non-IG ($3.7B cash, MSFT/Meta offtake)", igStatus:"Non-IG", termination:ND, latePenalties:ND, delivery:"Toward 65 MW UK capacity by 2027",
+  confidence:"High", confRationale:"Reported 10-yr 22 MW Kao lease; clean.",
+  sources:[{url:"https://mlq.ai/news/nebius-signs-10-year-22mw-lease-at-kao-datas-harlow-campus-pledges-17b-uk-investment/",title:"Nebius — 22 MW Kao Data lease"}]
+},
+{
+  region:"EMEA",
+  lessor:"Nebius (self-build)", tenantShort:"Nebius", tenantFull:"Nebius (self-operated AI factory)",
+  likelyTenant:"—", likelyRationale:"Self-operated.",
+  developer:"Nebius", city:"Béthune (near Lille)", state:"France", campus:"Béthune AI factory (240 MW)",
+  mw:"240", mwNum:240, itCapacity:"240 MW", announceDate:"2026", dealType:"Self-build (AI factory)",
+  tenor:ND, structure:"Owned/self-build", leaseType:ND, yieldOnCost:ND, buildCost:ND, tcvBase:ND, tcvRenewals:ND,
+  financing:ND, backstop:ND, backstopProvider:ND, igStatus:"Non-IG", termination:ND, latePenalties:ND, delivery:"First phase online late summer 2026; ~half by end-2026",
+  confidence:"High", confRationale:"DCD — one of Europe's largest; self-operated (not a 3rd-party lease).",
+  sources:[{url:"https://www.datacenterdynamics.com/en/news/nebius-plans-240mw-data-center-in-b%C3%A9thune-france/",title:"DCD — Nebius Béthune 240 MW"}]
+},
+{
+  region:"APAC",
+  lessor:"CDC Data Centres", tenantShort:"AWS (undisclosed US IG)", tenantFull:"Undisclosed 'US high-end investment-grade customer' — slide attributes AWS",
+  likelyTenant:"AWS", likelyRationale:"Operator did NOT name customer; slide attributes AWS. Inference: MEDIUM.",
+  developer:"CDC", city:"Canberra / Sydney / Melbourne", state:"Australia", campus:"Across CDC campuses (largest DC deal in Australian history)",
+  mw:"555", mwNum:555, itCapacity:"555 MW", announceDate:"2026-05-06", dealType:"BTS colocation (30-yr + options)",
+  tenor:"30 yr + up to 20 yr options", structure:"BTS colo", leaseType:ND, yieldOnCost:ND, buildCost:ND, tcvBase:ND, tcvRenewals:ND,
+  financing:ND, backstop:ND, backstopProvider:ND, igStatus:"IG", termination:ND, latePenalties:ND, delivery:"Delivered FY28-FY29; lifts CDC past 1 GW contracted",
+  confidence:"High", confRationale:"CDC + DCD; MW/date confirmed. Customer undisclosed (AWS = slide attribution).",
+  sources:[{url:"https://www.datacenterdynamics.com/en/news/cdc-signs-largest-ever-aussie-data-center-deal-to-provide-555mw-for-us-client/",title:"DCD — CDC 555 MW"},{url:"https://cdc.com/resources/news/cdc-signs-555mw-data-centre-contract-with-us-customer/",title:"CDC — 555 MW (official)"}]
+},
+{
+  region:"APAC",
+  lessor:"NextDC", tenantShort:"Microsoft (undisclosed US hyperscaler)", tenantFull:"Undisclosed 'US-based hyperscale cloud provider' — slide attributes Microsoft",
+  likelyTenant:"Microsoft", likelyRationale:"Operator did NOT name customer; slide attributes Microsoft. Inference: MEDIUM.",
+  developer:"NextDC", city:"Sydney (Horsley Park)", state:"Australia", campus:"S4 campus (~71% of 350 MW)",
+  mw:"250", mwNum:250, itCapacity:"250 MW of 350 MW campus", announceDate:"2026-04-20", dealType:"Hyperscale lease",
+  tenor:ND, structure:"Lease", leaseType:ND, yieldOnCost:ND, buildCost:"A$2.2B capital plan; A$1.5B raise", tcvBase:ND, tcvRenewals:ND,
+  financing:"A$1.5B equity raise triggered", backstop:ND, backstopProvider:ND, igStatus:"IG", termination:ND, latePenalties:ND, delivery:"Contracted utilization to ~667 MW",
+  confidence:"High", confRationale:"NextDC + DCD + Structure Research; MW/date confirmed. Customer undisclosed (MSFT = slide).",
+  sources:[{url:"https://www.datacenterdynamics.com/en/news/aussie-data-center-firm-nextdc-secures-250mw-data-center-deals-set-to-raise-more-than-au15-billion-via-new-shares/",title:"DCD — NextDC 250 MW"},{url:"https://www.nextdc.com/news/record-contracted-growth-and-a2.2bn-capital-plan-to-scale-ai-ready-infrastructure",title:"NextDC — record contracted growth (official)"}]
+},
+{
+  region:"APAC",
+  lessor:"Tata HyperVault (TCS)", tenantShort:"OpenAI", tenantFull:"OpenAI — first customer of TCS HyperVault (Stargate India); 100 MW start, option to 1 GW",
+  likelyTenant:"—", likelyRationale:"Tenant named.",
+  developer:"TCS / Tata", city:"India (site TBD)", state:"India", campus:"TCS HyperVault (Stargate India)",
+  mw:"100–200", mwNum:150, itCapacity:"100 MW start → 1 GW option", announceDate:"2026-02-19", dealType:"Anchor-tenant lease / AI partnership",
+  tenor:ND, structure:"Anchor lease", leaseType:ND, yieldOnCost:ND, buildCost:ND, tcvBase:ND, tcvRenewals:ND,
+  financing:ND, backstop:ND, backstopProvider:"OpenAI non-IG", igStatus:"Non-IG", termination:ND, latePenalties:ND, delivery:"Documented option to scale to 1 GW",
+  confidence:"High", confRationale:"OpenAI (official) + TechCrunch + DCD; announced at India AI Impact Summit.",
+  sources:[{url:"https://openai.com/index/openai-for-india/",title:"OpenAI for India (official)"},{url:"https://techcrunch.com/2026/02/18/openai-taps-tata-for-100mw-ai-data-center-capacity-in-india-eyes-1gw/",title:"TechCrunch — OpenAI/Tata 100 MW"}]
+},
+{
+  region:"APAC",
+  lessor:"AdaniConneX", tenantShort:"Google", tenantFull:"Google (hyperscale anchor; AdaniConneX + Airtel ecosystem partners)",
+  likelyTenant:"—", likelyRationale:"Tenant named.",
+  developer:"AdaniConneX", city:"Visakhapatnam (Andhra Pradesh)", state:"India", campus:"India AI Hub — 1 GW across 3 campuses (~601 acres)",
+  mw:"1,000", mwNum:1000, itCapacity:"1 GW (India's largest DC campus)", announceDate:"2026-04-28", dealType:"Hyperscale build / partnership",
+  tenor:ND, structure:"Anchor build", leaseType:ND, yieldOnCost:ND, buildCost:"~$15B (2026-2030)", tcvBase:ND, tcvRenewals:ND,
+  financing:"Adani up to $5B in campus", backstop:ND, backstopProvider:ND, igStatus:"IG", termination:ND, latePenalties:ND, delivery:"Groundbreaking Apr 2026; ops ~mid-2028",
+  confidence:"High", confRationale:"Google (official) + Adani (official) + DCD.",
+  sources:[{url:"https://www.datacenterdynamics.com/en/news/indias-adani-group-set-to-invest-up-to-5bn-in-google-data-center-campus-in-visakhapatnam/",title:"DCD — Adani/Google Visakhapatnam"},{url:"https://www.adani.com/newsroom/media-releases/adani-and-google-partner-to-build-indias-largest-data-centre-campus-in-visakhapatnam",title:"Adani — Google partnership (official)"}]
+},
+{
+  region:"APAC",
+  lessor:"NextDC", tenantShort:"OpenAI", tenantFull:"OpenAI (Stargate-linked MoU; A$7B / US$4.6B cluster)",
+  likelyTenant:"—", likelyRationale:"Tenant named.",
+  developer:"NextDC", city:"Sydney (Western Sydney)", state:"Australia", campus:"S7 campus (~258,000 sqm; up to 550 MW)",
+  mw:"550", mwNum:550, itCapacity:"up to 550 MW at full build", announceDate:"2025-12-04", dealType:"MoU / BTS AI campus (note: Dec 2025)",
+  tenor:ND, structure:"BTS / MoU", leaseType:ND, yieldOnCost:ND, buildCost:"A$7B (US$4.6B)", tcvBase:ND, tcvRenewals:ND,
+  financing:ND, backstop:ND, backstopProvider:"OpenAI non-IG", igStatus:"Non-IG", termination:ND, latePenalties:ND, delivery:"Go-live H2 2027",
+  confidence:"High", confRationale:"DCD + Bloomberg. Announced Dec 2025 (pre-2026) but central to 2026 APAC AI narrative — flagged.",
+  sources:[{url:"https://www.datacenterdynamics.com/en/news/openai-signs-mou-with-nextdc-for-australian-stargate-data-center-in-sydney/",title:"DCD — OpenAI/NextDC S7"}]
+},
+{
+  region:"APAC",
+  lessor:"Samsung SDS / SK Telecom", tenantShort:"OpenAI", tenantFull:"OpenAI (Stargate Korea MoU; Samsung + SK)",
+  likelyTenant:"—", likelyRationale:"Tenant named.",
+  developer:"Samsung SDS / SK", city:"Southwest South Korea", state:"South Korea", campus:"Stargate Korea (two DCs, ~20 MW initial)",
+  mw:"20", mwNum:20, itCapacity:"~20 MW initial; scaling", announceDate:"2026-02-11", dealType:"JV / MoU AI DC partnership",
+  tenor:ND, structure:"JV / MoU", leaseType:ND, yieldOnCost:ND, buildCost:ND, tcvBase:ND, tcvRenewals:ND,
+  financing:ND, backstop:ND, backstopProvider:"OpenAI non-IG", igStatus:"Non-IG", termination:ND, latePenalties:ND, delivery:"Groundbreaking ~Mar 2026; Samsung/SK Hynix supply HBM",
+  confidence:"High", confRationale:"DCD + Capacity; part of 'OpenAI for Countries'.",
+  sources:[{url:"https://www.datacenterdynamics.com/en/news/openai-plans-stargate-data-center-in-south-korea-samsung-electronics-sk-hynix-to-supply-memory-chips/",title:"DCD — OpenAI Stargate Korea"}]
+},
+{
+  region:"APAC",
+  lessor:"Reliance Industries", tenantShort:"Meta", tenantFull:"Meta — first India AI data center (build-to-suit from Reliance)",
+  likelyTenant:"—", likelyRationale:"Tenant named.",
+  developer:"Reliance", city:"Jamnagar (Gujarat)", state:"India", campus:"Reliance AI data center (BTS)",
+  mw:"168", mwNum:168, itCapacity:"168 MW", announceDate:"2026-06-10", dealType:"Build-to-suit lease",
+  tenor:ND, structure:"BTS", leaseType:ND, yieldOnCost:ND, buildCost:ND, tcvBase:ND, tcvRenewals:ND,
+  financing:ND, backstop:ND, backstopProvider:ND, igStatus:"IG", termination:ND, latePenalties:ND, delivery:"~2-yr delivery; anchors Meta India compute + cable stack",
+  confidence:"High", confRationale:"CNBC + TechTimes; Meta's first India AI DC lease.",
+  sources:[{url:"https://www.cnbc.com/2026/06/10/meta-ai-infrastructure-data-centers-india-hyperscalers-reliance.html",title:"CNBC — Meta/Reliance India 168 MW"}]
+}
+];
+
+const WATCH = [
+{region:"NA", prob:85, lessor:"Tract Capital (Fleet)", site:"TRIC 200 MW BTS + substation — formal confirmation pending", city:"Storey County (Reno)", state:"NV", tenant:"NVIDIA",
+ rationale:"Lease terms (16-yr initial + two 10-yr extensions) already embedded in priced $3.8B bond docs with ~$14B order book — functionally committed; only formal public confirmation outstanding. NOTE: carried in Confirmed Deals as a reported deal; this entry tracks the formal announcement.",
+ mw:200, window:"Q3 2026", signal:"Bond priced Feb 2026 on NVIDIA lease terms; $14B order book",
+ sources:[{url:"https://www.bloomberg.com/news/articles/2026-02-12/nvidia-to-lease-data-center-funded-by-3-8-billion-of-junk-bonds",title:"Bloomberg — NVIDIA/Tract"}]},
+{region:"NA", prob:80, lessor:"TeraWulf", site:"Cayuga (up to 400 MW; 138 MW RFS 2H26)", city:"Lansing", state:"NY", tenant:"Fluidstack (Google backstop)",
+ rationale:"UPDATED Jun 12 PM (was 55%): The Information reports Google agreed to backstop Fluidstack leases at three DCs under development including TPU hosting at at least one NEW YORK data center — Cayuga is TeraWulf's NY development site. Q1 call positioned Cayuga for enterprise/hyperscale tenants; three prior Google-backstopped Fluidstack leases with WULF ($12.8B template); growth target 250–500 MW/yr. NOTE (Jun 12 evening): the signed WULF–Fluidstack/Google leases to date are at Lake Mariner, not Cayuga — Cayuga currently holds only the 80-yr ground lease, so this remains a prediction.",
+ mw:260, window:"Q3 2026", signal:"The Information: Google backstop on NY Fluidstack TPU site; Cayuga 138 MW RFS 2H26",
+ sources:[{url:"https://www.fool.com/earnings/call-transcripts/2026/06/01/terawulf-wulf-q1-2026-earnings-transcript/",title:"WULF Q1 2026 call"},{url:"https://x.com/theinformation/status/1997708945067032863",title:"The Information — Google/Fluidstack NY backstop"},{url:"https://investors.terawulf.com/news-events/press-releases/detail/113/terawulf-secures-long-term-ground-lease-at-cayuga-site-to",title:"WULF — Cayuga ground lease"}]},
+{region:"NA", prob:78, lessor:"Cipher Digital", site:"Reveille (70 MW approved, Cotulla TX) + Ulysses (SE Ohio, PJM)", city:"Cotulla TX / SE Ohio", state:"TX / OH", tenant:"Fluidstack (Google backstop) or AWS (both repeat templates)",
+ rationale:"UPDATED Jun 12 PM (was 55%): CEO Tyler Page on Q1 call — 'active and advanced discussions with multiple potential tenants for an HPC hosting lease' at Reveille and Ulysses; May 2026 comments tout pricing power in lease negotiations. Two proven repeat-tenant channels (Fluidstack/Google at Barber Lake; AWS at Colchis $5.5B) reduce execution risk.",
+ mw:250, window:"Q3 2026", signal:"CEO: 'active and advanced discussions with multiple potential tenants'",
+ sources:[{url:"https://sherwood.news/markets/cipher-mining-gains-despite-posting-underwhelming-q1-revenuves/",title:"Sherwood — Cipher CEO touts pricing power"},{url:"https://www.fool.com/earnings/call-transcripts/2026/05/05/cipher-mining-cifr-q1-2026-earnings-transcript/",title:"CIFR Q1 2026 call"}]},
+{region:"NA", prob:75, lessor:"Applied Digital", site:"6th AI Factory campus (Macquarie-funded pre-lease pipeline)", city:"TBD", state:"ND or new state", tenant:"Microsoft (est.)",
+ rationale:"APLD disclosed 'advanced negotiations with another investment-grade hyperscaler' on its Jan 2026 FQ2 call and has since converted similar language into signed leases three times (DF1 Apr, PF3 May, DF2 Jun). ~750 MW of powered land remains unleased on ~2.15 GW secured power. Docked for possibility the negotiation was consumed by Delta Forge 2.",
+ mw:200, window:"Q3–Q4 2026", signal:"Earnings-call 'advanced negotiations' + Macquarie pre-lease loan facility + 3-for-3 conversion record",
+ sources:[{url:"https://www.fool.com/earnings/call-transcripts/2026/01/15/applied-digital-q2-2026-earnings-call-transcript/",title:"APLD FQ2 2026 call"}]},
+{region:"NA", prob:70, lessor:"Galaxy Digital", site:"Helios — 830 MW expansion tranche", city:"Dickens County", state:"TX", tenant:"CoreWeave (incumbent) or new hyperscaler/neocloud",
+ rationale:"UPDATED Jun 12 PM (was 60%): ERCOT approval complete (campus to 1.6+ GW), $1.4B phase-one financing closed, and Novogratz confirms negotiations with '5 or 6' players; tenanting guided to 2H 2026. CoreWeave incumbent (800 MW under 15-yr/$15B) with substation/fiber in place.",
+ mw:830, window:"H2 2026", signal:"CEO-confirmed multi-party negotiations + ERCOT approval + $1.4B financing closed",
+ sources:[{url:"https://blockspace.media/insight/galaxy-potentially-in-negotiation-with-hyperscalers-for-830-mw-helios-expansion-novogratz/",title:"Blockspace — Novogratz '5 or 6 players'"},{url:"https://www.prnewswire.com/news-releases/galaxy-completes-ercot-interconnection-studies-and-secures-approval-for-additional-830-megawatts-at-helios-data-center-campus-doubling-total-approved-power-capacity-to-over-1-6-gigawatts-302662509.html",title:"Galaxy — ERCOT 830 MW approval"}]},
+{region:"NA", prob:70, lessor:"DMG Blockchain Solutions", site:"Christina Lake BC — 50 MW AI data center (signed LOI)", city:"Christina Lake", state:"BC, Canada", tenant:"Unnamed AI counterparty (neocloud profile)",
+ rationale:"NEW Jun 12 PM: DMG announced a signed 50 MW AI data center LOI on June 1, 2026. LOI-to-definitive-lease is the standard next step; counterparty profile (GPU cloud seeking Canadian hydro) matches the neocloud universe. Small-cap execution risk caps it at bottom of LOI band.",
+ mw:50, window:"Q3 2026", signal:"Signed 50 MW LOI announced Jun 1, 2026; BC hydro site with grid connection",
+ sources:[{url:"https://www.globenewswire.com/news-release/2026/06/01/3304040/0/en/dmg-blockchain-solutions-inc-announces-50-megawatt-ai-data-center-letter-of-intent.html",title:"DMG — 50 MW AI DC LOI"}]},
+{region:"NA", prob:65, lessor:"IREN", site:"Sweetwater 1 (1.4 GW; substation energized Apr 2026)", city:"Sweetwater (Nolan Co.)", state:"TX", tenant:"NVIDIA",
+ rationale:"NVIDIA–IREN 5 GW DSX strategic partnership is 'centered on the 2 GW Sweetwater campus' with a $2.1B NVIDIA warrant tied to deployment milestones; IREN guides $3.7B ARR by end-2026 vs $3.1B contracted — implying further signings. Microsoft (Childress incumbent, $9.7B) is secondary candidate.",
+ mw:700, window:"Q3–Q4 2026", signal:"Signed 5 GW framework naming campus + substation energized + ARR guidance gap",
+ sources:[{url:"https://thenextweb.com/news/nvidia-iren-2-1bn-warrant-5gw-sweetwater-ai-data-centers",title:"NVIDIA $2.1B warrant in IREN"},{url:"https://www.sec.gov/Archives/edgar/data/0001878848/000187884826000025/irenreportsq3fy26results.htm",title:"IREN Q3 FY26 8-K"}]},
+{region:"NA", prob:60, lessor:"Core Scientific", site:"Pecos — scaling 300 MW to 1.5 GW", city:"Pecos", state:"TX", tenant:"CoreWeave",
+ rationale:"UPDATED Jun 12 PM (split from combined entry): additional 300 MW grid power secured at Pecos (Q1 call); $3B financing raised for 3 GW expansion; ~$2B 2026 capex pre-seeds ~1 GW of billable capacity. CoreWeave holds 12-yr/$10B+/~590 MW take-or-pay with CORZ and has expanded at CORZ sites three times.",
+ mw:300, window:"H2 2026", signal:"300 MW Pecos power secured + $3B financing + CoreWeave expansion precedent",
+ sources:[{url:"https://www.fool.com/earnings/call-transcripts/2026/05/06/core-scientific-corz-q1-2026-earnings-transcript/",title:"CORZ Q1 2026 call"},{url:"https://www.investing.com/news/company-news/core-scientific-q1-2026-slides-3b-financing-fuels-3-gw-expansion-93CH-4680917",title:"CORZ Q1 slides — $3B financing"}]},
+{region:"NA", prob:55, lessor:"Ionic Digital", site:"Barstow campus Phase 2 (Nscale scaling site to 1.2 GW; Microsoft 700 MW option)", city:"Barstow", state:"TX", tenant:"Nscale (end customer: Microsoft)",
+ rationale:"NEW Jun 12 PM: Nscale leases Barstow from Ionic (240 MW Ph 1, Microsoft deliveries from Q3 2026; 1.35 GW Vera Rubin deal from 2027). Microsoft holds an option on a 700 MW second phase from late 2027 — exercise requires Nscale to expand its Ionic lease. $2B Series C at $14.6B + $790M debt + 2026 IPO momentum.",
+ mw:700, window:"Q4 2026", signal:"Contractual Microsoft 700 MW option + Nscale $2.8B fresh capital",
+ sources:[{url:"https://tech.eu/2026/03/17/nscale-snaps-up-major-us-data-centre-site-inks-ai-compute-deal-with-microsoft/",title:"tech.eu — Nscale Barstow + Microsoft"},{url:"https://www.datacenterdynamics.com/en/news/nscale-to-supply-microsoft-with-additional-100000-nvidia-gpus-in-us-and-europe/",title:"DCD — Nscale/Microsoft 100k GPUs"}]},
+{region:"NA", prob:55, lessor:"Riot Platforms", site:"Corsicana (168 MW core-and-shell) + Rockdale", city:"Corsicana", state:"TX", tenant:"Neocloud (CoreWeave/Fluidstack/Lambda class) or chip-vendor partner",
+ rationale:"NEW Jun 12 PM: Q1 2026 call — 'active leasing discussions ongoing at both Corsicana and Rockdale with no gating items'; GC mobilized, substation equipment secured. First tenant was AMD (50 MW/$636M, Jan 2026); next tranche is 3x larger and Riot prioritizes IG or financeable counterparties — fits Google/NVIDIA-backstopped neoclouds.",
+ mw:168, window:"H2 2026", signal:"Q1 call: active leasing discussions, no gating items; construction committed",
+ sources:[{url:"https://www.fool.com/earnings/call-transcripts/2026/04/30/riot-riot-q1-2026-earnings-call-transcript/",title:"RIOT Q1 2026 call"},{url:"https://www.sec.gov/Archives/edgar/data/0001167419/000110465926053120/riot-20260331x10q.htm",title:"RIOT 10-Q Q1 2026"}]},
+{region:"NA", prob:55, lessor:"Core Scientific", site:"Muskogee / Polaris — 440 MW OG&E power added (campus to ~1 GW leasable)", city:"Muskogee", state:"OK", tenant:"CoreWeave",
+ rationale:"NEW Jun 12 PM: Polaris DS acquisition added 440 MW gross contracted OG&E power + 40 acres adjacent to the Muskogee campus where CoreWeave is anchor; CORZ guides Muskogee to 1.5 GW gross / ~1 GW leasable. CoreWeave backlog $66.8B post-$21B Meta expansion requires new leased shells.",
+ mw:440, window:"H2 2026 – H1 2027", signal:"Polaris 440 MW acquisition + CoreWeave anchor + backlog pressure",
+ sources:[{url:"https://www.datacenterdynamics.com/en/news/core-scientific-acquires-cryptomine-in-muskogee-to-expand-ai-data-center-campus/",title:"DCD — CORZ Muskogee/Polaris"},{url:"https://blockspace.media/insight/core-scientific-jumps-7-in-morning-markets-as-data-center-firm-announces-440-mw-expansion-at-oklahoma-site/",title:"Blockspace — 440 MW Oklahoma expansion"}]},
+{region:"NA", prob:55, lessor:"Vantage Data Centers", site:"Port Washington Stargate — Phase 2 beyond initial ~1 GW", city:"Port Washington", state:"WI", tenant:"Oracle",
+ rationale:"Vantage is the named Wisconsin Stargate developer under the OpenAI–Oracle 4.5 GW expansion. ~$72B of Oracle partner debt raised incl. ~$38B for TX/WI campuses; OpenAI flags Port Washington expansion potential and says six campuses underway by end-2026. Phase-2 commitment inferred from partnership trajectory, not a disclosed negotiation.",
+ mw:500, window:"H2 2026", signal:"OpenAI 'evaluating additional sites'; $38B TX/WI partner debt; six campuses by YE26",
+ sources:[{url:"https://vantage-dc.com/news/openai-oracle-and-vantage-data-centers-announce-stargate-data-center-site-in-wisconsin/",title:"Vantage — Wisconsin Stargate site"},{url:"https://www.cnbc.com/2026/06/01/stargate-project-michigan-live-updates.html",title:"CNBC — Stargate updates Jun 1, 2026"}]},
+{region:"NA", prob:50, lessor:"Hut 8", site:"Beacon Point phases 2–3 (~650 MW remaining of 1 GW campus)", city:"Nueces County", state:"TX", tenant:"Same confidential high-IG tenant as Ph 1, or second neocloud",
+ rationale:"NEW Jun 12 PM: Phase 1 (352 MW/$9.8B) commercialized May 6; $4.25B bond priced for campus buildout; ~650 MW remains. Hut 8's power-first model converted River Bend and Beacon Point back-to-back in 6 months; multi-GW pipeline framed as awaiting commercialization.",
+ mw:650, window:"Q4 2026 – H1 2027", signal:"Two campus commercializations in 6 months + bond financing closed",
+ sources:[{url:"https://www.prnewswire.com/news-releases/hut-8-commercializes-first-phase-of-1-gw-beacon-point-ai-data-center-campus-with-15-year-352-mw-it-lease-with-base-term-contract-value-of-9-8-billion-302763484.html",title:"Hut 8 — Beacon Point Ph 1"},{url:"https://blockspace.media/insight/hut-8-secures-4-25-billion-ai-data-center-bond/",title:"Blockspace — $4.25B bond"}]},
+{region:"NA", prob:45, lessor:"Bitfarms / T5 Data Centers", site:"Panther Creek — 350 MW HPC/AI campus (waste-coal plant)", city:"Nesquehoning (Carbon Co.)", state:"PA", tenant:"IG hyperscaler or Google/NVIDIA-backstopped neocloud",
+ rationale:"NEW Jun 12 PM: Bitfarms targets 'highly financeable leases with investment-grade tenants'; permits expected mid-late summer 2026; Phase 1 energized YE2026; T5 development partner; $300M Macquarie project financing converted. PJM-East power-ready capacity in 2026 is scarce.",
+ mw:350, window:"Q3–Q4 2026", signal:"$300M project financing + T5 partnership + YE26 energization",
+ sources:[{url:"https://www.stocktitan.net/news/BITF/bitfarms-converts-macquarie-debt-facility-to-300m-project-financing-qxemp7qpm58g.html",title:"Bitfarms — $300M Macquarie project financing"}]},
+{region:"NA", prob:45, lessor:"Patmos Hosting", site:"Kansas City AI factory expansion (24 MW launch → 100 MW+)", city:"Kansas City", state:"MO", tenant:"Lambda",
+ rationale:"NEW Jun 12 PM: Lambda's KC AI factory opens 2026 at 24 MW with 100 MW+ scaling potential; Lambda's multi-billion Microsoft GPU deal begins 2026 deployments and its $1.5B TWG-led raise funds capacity it does not yet control. KC lease expansion (or sister site) is the natural next tranche.",
+ mw:80, window:"H2 2026", signal:"Lambda $1.5B raise + Microsoft contracted demand + site designed to scale",
+ sources:[{url:"https://siliconangle.com/2025/11/18/ai-cloud-operator-lambda-raises-1-5b-build-data-centers/",title:"SiliconANGLE — Lambda $1.5B raise"},{url:"https://www.datacenterdynamics.com/en/news/microsoft-signs-multi-billion-dollar-cloud-capacity-deal-with-lambda/",title:"DCD — Microsoft/Lambda deal"}]},
+{region:"NA", prob:40, lessor:"Bitdeer", site:"Clarington OH (570 MW interconnection) + Rockdale TX", city:"Clarington", state:"OH", tenant:"Unnamed neocloud/hyperscaler (active dialogue)",
+ rationale:"NEW Jun 12 PM: Bitdeer's 2026 6-K discloses advanced-stage colocation negotiations at Tydal (Norway) and 'active dialogue' for Ohio/Rockdale. Bitdeer is an NVIDIA cloud partner — fits the emerging NVIDIA partner-lease backstop pattern ($860M guarantee disclosed in NVIDIA filings).",
+ mw:570, window:"Q4 2026", signal:"6-K: active dialogue on NA sites; NVIDIA partner backstop pattern",
+ sources:[{url:"https://www.sec.gov/Archives/edgar/data/0001899123/000121390026054748/ea028888001ex99-1.htm",title:"Bitdeer 6-K FY2026"}]},
+{region:"NA", prob:40, lessor:"Hut 8", site:"River Bend expansion (Fluidstack ROFO up to 1,000 MW beyond initial 245 MW)", city:"West Feliciana Parish", state:"LA", tenant:"Fluidstack (Google backstop)",
+ rationale:"Dec 2025 River Bend lease (245 MW/$7.0B) carries Google financial backstop + Fluidstack ROFO on 1,000 MW of expansion 'subject to expansion of power.' $3.25B notes closed; $16M water upgrades underway. Gated on incremental power procurement — 2027 slippage risk high.",
+ mw:300, window:"Q4 2026 – H1 2027", signal:"Contractual ROFO + financing closed + site infrastructure spend",
+ sources:[{url:"https://www.prnewswire.com/news-releases/hut-8-signs-15-year-245-mw-ai-data-center-lease-at-river-bend-campus-with-total-contract-value-of-7-0-billion-302644600.html",title:"Hut 8 — River Bend 245 MW lease"}]},
+{region:"NA", prob:40, lessor:"PowerHouse Data Centers / Provident", site:"Grand Prairie — 1.8 GW switchyard, 24 bldgs, 3 phases (spec)", city:"Grand Prairie (DFW)", state:"TX", tenant:"Microsoft (est.)",
+ rationale:"PowerHouse just converted spec into an unnamed-hyperscaler lease at Arcola (Jan 2026), demonstrating live demand for its shells. Grand Prairie's 1.8 GW switchyard targets exactly the large-block near-term-power capacity MSFT/AWS lease in DFW. No tenant named — spec + power-infrastructure signal only.",
+ mw:300, window:"Q4 2026", signal:"Arcola conversion precedent; 1.8 GW switchyard, power delivery 2026/27; 8.1 GW / 118-bldg pipeline",
+ sources:[{url:"https://www.powerhousedata.com/news/lets-go-build-some-data-centers-powerhouse-drives-hyperscale-and-ai-infrastructure-across-north-america",title:"PowerHouse — 8.1 GW pipeline"}]},
+{region:"NA", prob:25, lessor:"Fermi (Fermi America)", site:"Project Matador / HyperGrid (1 GW power target YE2026 in 11–17 GW master plan)", city:"Amarillo (Carson Co.)", state:"TX", tenant:"Oracle (speculative)",
+ rationale:"Sept 2025 LOI with unnamed IG tenant terminated in 2026 (stock cratered) but counterparty 'remains in discussion' and Fermi has 'commenced discussions with several other potential tenants for 2026 power delivery.' Oracle best fits the behind-the-meter gas/nuclear speed-to-power pitch (Shackelford/Frontier precedent ~150 mi away). Execution credibility impaired. Ground-lease trigger requires a 200 MW Phase 1 tenant by Dec 31, 2026.",
+ mw:500, window:"Q4 2026", signal:"Post-failed-LOI discussions; TCEQ 5 GW permit filing; YE2026 tenant deadline",
+ sources:[{url:"https://www.datacenterdynamics.com/en/news/fermi-share-price-craters-as-tenant-pulls-back-from-150m-texas-data-center-deal/",title:"DCD — Fermi tenant pullback"}]},
+{region:"NA", prob:25, lessor:"Hypertec (or comparable NA colo partner)", site:"Site TBD — follow-on to 36k-GPU GB200 co-build", city:"TBD (Montreal corridor likely)", state:"QC, Canada", tenant:"Together AI",
+ rationale:"NEW Jun 12 PM: Together AI seeking $1B in new funding (May 2026, DCD) explicitly to expand capacity; prior Hypertec 36,000-GPU GB200 co-build; Instant Clusters capacity selling out. Financing signal real but no site/lessor/negotiation disclosed — informed speculation band.",
+ mw:100, window:"Q4 2026 – H1 2027", signal:"$1B raise report + Hypertec precedent + capacity sell-outs",
+ sources:[{url:"https://www.datacenterdynamics.com/en/news/together-ai-seeks-1bn-in-funding-report/",title:"DCD — Together AI seeks $1B"}]},
+{region:"EMEA", prob:55, lessor:"CoreWeave (program)", site:"~$2.2B new DCs across Sweden, Norway, Spain", city:"Multiple", state:"Sweden / Norway / Spain", tenant:"CoreWeave (self + lease)",
+ rationale:"CoreWeave's ~$2.2B European build/lease program; European boss (Jun 3, 2026) said CoreWeave is leasing UK space for speed. Program-level, not a single discrete lease.",
+ mw:"n/d", window:"H2 2026", signal:"$2.2B EU program; UK leasing underway (Jun 2026)",
+ sources:[{url:"https://tech.eu/2026/06/03/speed-reason-coreweave-leasing-data-centre-space-in-uk-says-european-boss/",title:"Tech.eu — CoreWeave UK leasing"}]},
+{region:"EMEA", prob:40, lessor:"Nscale", site:"West London capacity (reported)", city:"West London (Slough area)", state:"United Kingdom", tenant:"Google (reported)",
+ rationale:"DCD reports Google taking capacity at an Nscale West London DC; capacity n/d, not officially confirmed.",
+ mw:"n/d", window:"2026", signal:"DCD report (Google/Nscale West London)",
+ sources:[{url:"https://www.datacenterdynamics.com/en/news/google-takes-up-capacity-at-nscale-data-center-in-west-london-uk-report/",title:"DCD — Google/Nscale West London (report)"}]},
+{region:"APAC", prob:45, lessor:"Multiple (TCS HyperVault + others)", site:"OpenAI Asia site-selection tour (JP/KR/AU/IN/SG)", city:"Multiple", state:"Multiple APAC", tenant:"OpenAI",
+ rationale:"June 2026 reports: OpenAI touring Asia for additional Stargate sites. Forward pipeline signal, not a signed lease.",
+ mw:"n/d", window:"H2 2026", signal:"OpenAI APAC site-selection tour (Jun 2026)",
+ sources:[{url:"https://www.datacenterdynamics.com/en/news/openai-considers-data-center-in-south-korea/",title:"DCD — OpenAI considers Korea / Asia tour"}]},
+{region:"APAC", prob:40, lessor:"Bridge Data Centres", site:"Johor expansion (400 MW TNB + 200 MW Mah Sing JV)", city:"Johor (Sedenak)", state:"Malaysia", tenant:"ByteDance / Tencent (likely)",
+ rationale:"Bridge expanding aggressively in Johor; confirmed anchor is ByteDance (MY06). Tencent 30 MW (slide) unverified — tracked as pipeline.",
+ mw:"~200–400", window:"2026", signal:"400 MW TNB power deal; 200 MW Mah Sing JV",
+ sources:[{url:"https://www.datacenterdynamics.com/en/news/bridge-dc-signs-200mw-data-center-jv-with-malaysias-mah-sing/",title:"DCD — Bridge/Mah Sing 200 MW JV"}]},
+{region:"NA", prob:50, lessor:"Multiple (unnamed)", site:"12+ LOIs, >1 GW direct US leases; Google backstop talks", city:"Multiple", state:"US", tenant:"Anthropic (Google backstop)",
+ rationale:"NEW Jun 12: Anthropic signed 12+ letters of intent for >1 GW of direct US data center leases (The Information); Google in talks to backstop lease payments — shift toward own/operate. Non-binding LOIs; lessors/sites/MW undisclosed.",
+ mw:">1,000", window:"H2 2026", signal:"The Information — 12+ Anthropic LOIs; Google backstop talks",
+ sources:[{url:"https://www.datacenterdynamics.com/en/news/anthropic-signs-more-than-a-dozen-letters-of-intent-for-data-center-leases-report/",title:"DCD — Anthropic 12+ LOIs"}]}
+];
+
+/* ---------- KPIs ---------- */
+function renderKPIs(){
+  const D = DEALS.filter(d=>inReg(d.region)), W = WATCH.filter(w=>inReg(w.region));
+  const disclosedMw = D.filter(d=>d.mwNum>0).reduce((s,d)=>s+d.mwNum,0);
+  const mwUndisclosed = D.filter(d=>d.mwNum===0).length;
+  const tcvSum = D.reduce((s,d)=>{const m=(d.tcvBase||'').replace(/[^0-9,]/g,'').replace(/,/g,'');return s+(m&&!d.tcvBase.includes('est.')?parseInt(m):0)},0);
+  const namedTenants = [...new Set(D.filter(d=>!d.tenantShort.includes('Unnamed')).map(d=>d.tenantShort.replace(' (reported)','')))];
+  const nonIg = D.filter(d=>d.igStatus==='Non-IG').length;
+  document.getElementById('kpis').innerHTML = `
+    <div class="kpi"><div class="v">${D.length}</div><div class="l">${REGION_LABEL[REGION]} 2026 deals</div></div>
+    <div class="kpi"><div class="v">~${(disclosedMw/1000).toFixed(1)} GW</div><div class="l">Contracted MW, incl. est. (${mwUndisclosed} n/d)</div></div>
+    <div class="kpi good"><div class="v">$${(tcvSum/1000).toFixed(1)}B</div><div class="l">Disclosed base TCV</div></div>
+    <div class="kpi"><div class="v">${namedTenants.length} named</div><div class="l">Tenants (+ unnamed deals)</div></div>
+    <div class="kpi warn"><div class="v">${nonIg}</div><div class="l">Non-IG tenant deals</div></div>
+    <div class="kpi"><div class="v">${W.length}</div><div class="l">Watch-list projects</div></div>`;
+}
+
+/* ---------- Alert bar ---------- */
+function renderAlert(){
+  const recent = DEALS.filter(d=>inReg(d.region)&&d.announceDate>='2026-05-01').sort((a,b)=>b.announceDate.localeCompare(a.announceDate)).slice(0,6);
+  const hotWatch = WATCH.filter(w=>inReg(w.region)&&w.prob>=70);
+  document.getElementById('alertbar').innerHTML = `<b>⚡ ALERTS</b>
+    ${recent.map(d=>`<div class="item">🆕 <b>${d.announceDate}</b> — ${d.lessor} / ${d.tenantShort}: ${d.mw} MW, ${d.campus} <span class="d">(${d.tcvBase!==ND?d.tcvBase+' base':'TCV n/d'})</span></div>`).join('')}
+    ${hotWatch.map(w=>`<div class="item">🔮 <b>${w.prob}%</b> — ${w.lessor} / ${w.tenant} likely at ${w.site} <span class="d">(window: ${w.window})</span></div>`).join('')}`;
+}
+
+/* ---------- Tabs ---------- */
+document.getElementById('tabs').addEventListener('click',e=>{
+  if(!e.target.classList.contains('tab'))return;
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  e.target.classList.add('active');
+  document.querySelectorAll('.pane').forEach(p=>p.style.display='none');
+  document.getElementById('pane-'+e.target.dataset.t).style.display='';
+});
+
+/* ---------- Deal table ---------- */
+let sortKey='announceDate', sortDir=-1;
+function fmt(v){ if(v===ND||v==null||v==='') return `<span class="nd">${ND}</span>`; if(String(v).includes('est.')) return `<span class="est">${v}</span>`; return v; }
+function confBadge(c){return `<span class="badge b-${c.toLowerCase().slice(0,c==='Medium'?3:4)==='med'?'med':c==='High'?'high':'low'}">${c}</span>`}
+function igBadge(s){return s==='Non-IG'?'<span class="badge b-nonig">NON-IG</span>':'<span class="badge b-ig">IG</span>'}
+
+function renderDeals(){
+  const ft=v('f-tenant'),fl=v('f-lessor'),fs=v('f-state'),fy=v('f-type'),fc=v('f-conf'),fi=v('f-ig'),q=v('f-search').toLowerCase();
+  let rows = DEALS.filter(d=>
+    inReg(d.region)&&
+    (!ft||d.tenantShort===ft||(d.likelyTenant||'').includes(ft))&&(!fl||d.lessor===fl)&&(!fs||d.state===fs)&&
+    (!fy||d.dealType===fy)&&(!fc||d.confidence===fc)&&(!fi||d.igStatus===fi)&&
+    (!q||JSON.stringify(d).toLowerCase().includes(q)));
+  rows.sort((a,b)=>{let x=a[sortKey],y=b[sortKey];if(typeof x==='number')return (x-y)*sortDir;return String(x).localeCompare(String(y))*sortDir;});
+  document.getElementById('dealbody').innerHTML = rows.map((d,i)=>{
+    const vRow = '';
+    return `<tr class="mainrow${vRow}" onclick="toggleDetail('d${i}')">
+      <td>${d.announceDate}</td><td><b>${d.lessor}</b></td>
+      <td class="tenant">${d.tenantShort}</td><td>${d.likelyTenant==='—'?'<span class="nd">—</span>':'<span class="est">'+d.likelyTenant+'</span>'}</td>
+      <td>${d.city}</td><td>${d.state}</td><td>${fmt(d.mw)}</td><td>${fmt(d.tenor)}</td>
+      <td>${fmt(d.structure)}</td><td>${fmt(d.tcvBase)}</td>
+      <td>${confBadge(d.confidence)}</td><td>${igBadge(d.igStatus)}</td></tr>
+    <tr class="detail" id="d${i}" style="display:none"><td colspan="12"><div class="dgrid">
+      ${df('Campus / Site',d.campus)}${df('Deal type',d.dealType)}${df('Developer',d.developer)}
+      ${df('IT capacity',d.itCapacity)}${df('Lease type / rate',d.leaseType)}${df('Yield on cost',d.yieldOnCost)}
+      ${df('Est. build cost',d.buildCost)}${df('TCV w/ renewals',d.tcvRenewals)}${df('Financing',d.financing)}
+      ${df('Backstop',d.backstop)}${df('Backstop provider & structure',d.backstopProvider)}
+      ${df('Termination rights',d.termination)}${df('Late-delivery penalties',d.latePenalties)}${df('Delivery timeline',d.delivery)}
+      ${df('Likely-tenant rationale',d.likelyRationale)}${df('Confidence rationale',d.confRationale)}
+      <div class="f"><div class="k">Sources</div><div class="x src">${d.sources.map(s=>`<a href="${s.url}" target="_blank">${s.title}</a>`).join('<br>')}<br><span class="nd">verified 2026-06-12</span></div></div>
+    </div></td></tr>`;
+  }).join('');
+}
+function df(k,x){return `<div class="f"><div class="k">${k}</div><div class="x">${fmt(x)}</div></div>`}
+function v(id){return document.getElementById(id).value}
+function toggleDetail(id){const e=document.getElementById(id);e.style.display=e.style.display==='none'?'':'none'}
+function clearFilters(){['f-tenant','f-lessor','f-state','f-type','f-conf','f-ig','f-search'].forEach(i=>document.getElementById(i).value='');renderDeals();}
+
+/* populate filters */
+function pop(id,vals){const s=document.getElementById(id);[...new Set(vals)].sort().forEach(x=>{const o=document.createElement('option');o.textContent=x;s.appendChild(o)})}
+pop('f-tenant',DEALS.map(d=>d.tenantShort));pop('f-lessor',DEALS.map(d=>d.lessor));
+pop('f-state',DEALS.map(d=>d.state));pop('f-type',DEALS.map(d=>d.dealType));
+['f-tenant','f-lessor','f-state','f-type','f-conf','f-ig'].forEach(i=>document.getElementById(i).addEventListener('change',renderDeals));
+document.getElementById('f-search').addEventListener('input',renderDeals);
+document.querySelectorAll('#dealtable th').forEach(th=>th.addEventListener('click',()=>{
+  const k=th.dataset.k;if(!k)return;
+  if(sortKey===k)sortDir*=-1;else{sortKey=k;sortDir=1}
+  document.querySelectorAll('#dealtable th .arr').forEach(a=>a.remove());
+  th.insertAdjacentHTML('beforeend',` <span class="arr">${sortDir===1?'▲':'▼'}</span>`);
+  renderDeals();
+}));
+renderDeals();
+
+/* ---------- Watch list ---------- */
+function renderWatch(){
+ document.getElementById('watchbody').innerHTML = WATCH.filter(w=>inReg(w.region)).map((w,i)=>{
+  const pc = w.prob>=65?'p-hi':w.prob>=45?'p-md':'p-lo';
+  const vRow = '';
+  return `<tr class="mainrow${vRow}" onclick="toggleDetail('w${i}')">
+    <td class="prob ${pc}">${w.prob}%</td><td><b>${w.lessor}</b><br><span class="nd" style="font-size:11px">${w.site}</span></td>
+    <td>${w.city}</td><td>${w.state}</td><td class="tenant">${w.tenant}</td><td>${w.mw}</td><td>${w.window}</td><td style="max-width:300px">${w.signal}</td></tr>
+  <tr class="detail" id="w${i}" style="display:none"><td colspan="8"><div class="dgrid">
+    ${df('Probability rationale',w.rationale)}
+    <div class="f"><div class="k">Sources</div><div class="x src">${w.sources.map(s=>`<a href="${s.url}" target="_blank">${s.title}</a>`).join('<br>')}<br><span class="nd">verified 2026-06-12</span></div></div>
+  </div></td></tr>`;
+ }).join('') || '<tr><td colspan="8" class="nd" style="padding:18px">No watch-list items for this region.</td></tr>';
+}
+
+/* ---------- Tenant summary ---------- */
+const TEN = [
+ {r:"NA", n:"Microsoft", ig:"IG (AAA)", deals:"1 named (Crusoe Abilene) + likely candidate for APLD trio, Hut 8, Cipher", mw:"900 MW named; up to ~1,462 MW more if unnamed-deal inferences hold", notes:["Most active confirmed third-party lessee of 2026 (~$50B/qtr lease commitments per Bloomberg; $11.1B lease spend Q1 CY26)","Took the Abilene capacity Oracle/OpenAI abandoned (Mar 2026)","Feb 2026 TD Cowen flagged ~200 MW cancellations — reversed by spring leasing wave"]},
+ {r:"NA", n:"CoreWeave", ig:"NON-IG (Ba2/BB+)", deals:"2 (eStruxture CAL-3 anchor; Prime Chicago BTS)", mw:"n/d both deals (Prime est. 50–90 MW)", notes:["NO deal-specific backstop disclosed on either 2026 lease — bondholders/lessors carry CRWV credit","Portfolio-level support: NVIDIA $6.3B capacity backstop (thru 2032), $2B NVIDIA equity (Jan 2026), $99.4B backlog incl. Meta $21B","$20B+ debt/equity raised YTD 2026 (DDTL 4.0 $8.5B IG-rated; DDTL 5.0 $3.1B non-IG)"]},
+ {r:"NA", n:"Oracle", ig:"IG (BBB/Baa2 — lowest-rated IG on list)", deals:"2 (Project Jupiter NM confirmed; DataBank Red Oak reported)", mw:"180 MW reported + GW-class Jupiter (n/d)", notes:["$248B undiscounted future DC lease commitments (Dec 2025 10-Q) — sector's biggest credit watch item","~$150B of new DC leases signed in quarter ended Nov 30, 2025","Walked away from Crusoe Abilene expansion with OpenAI (Mar 2026) — capacity went to Microsoft"]},
+ {r:"NA", n:"Meta", ig:"IG (AA-)", deals:"1 (El Paso SPV lease financing)", mw:"~1,000 MW campus", notes:["$13B SPV financing (MS + JPM) follows Hyperion/Blue Owl template (Meta RVG ~$28B precedent)","Speculated candidate for Hut 8 Beacon Point","Self-builds continue (Lebanon IN $10B/1 GW — could later convert to SPV lease structure)"]},
+ {r:"NA", n:"NVIDIA", ig:"IG (AA-tier)", deals:"1 reported (Tract Reno 200 MW)", mw:"200 MW", notes:["First direct NVIDIA lease at scale — 16 yr + two 10-yr options, disclosed via $3.8B bond pricing","Also acts as ecosystem credit support: CoreWeave backstop, IREN $2.1B warrant, OpenAI/SB Energy guarantee","Watch: IREN Sweetwater conversion (65%)"]},
+ {r:"NA", n:"AWS", ig:"IG (AA)", deals:"0 confirmed 2026 NA leases", mw:"—", notes:["2026 activity = self-build land + acquisitions (Bastrop TX 1,300 ac; $427M Ashburn campus purchase)","Cipher 300 MW/$5.5B lease was Nov 2025; deliveries complete Q4 2026","Speculated candidate for Hut 8 Beacon Point + Cipher's next signing"]},
+ {r:"NA", n:"Google", ig:"IG (AA+)", deals:"0 direct; 1 backstopped (Fluidstack Indiana 430 MW)", mw:"430 MW backstopped (Meridian/Indiana)", notes:["Backstops the Fluidstack 430 MW Indiana NNN lease (Apr 16, 2026) — guarantees the lease, underpinning the BB bond rating","Record Q1 2026 colo spend (TD Cowen) implies more unattributed signings — expect retroactive attributions","2025 template: Fluidstack-fronted leases with Google backstops ($3.2B TeraWulf, $1.73B Cipher) + WULF equity stakes","Watch: TeraWulf Cayuga at 80% (reported Google backstop on NY Fluidstack TPU site)"]},
+ {r:"NA", n:"Fluidstack", ig:"NON-IG (Google-backstopped)", deals:"1 (Meridian/Coatue Indiana 430 MW BTS)", mw:"430 MW", notes:["Anchor tenant of the 430 MW Indiana build-to-suit (New Lebanon, Sullivan Co.); 15-yr NNN + 3×5-yr","Google guarantees the lease — assumes it or pays a termination fee on Fluidstack default","Equity sponsor Coatue/Frontier (50.1%) via Meridian Compute JV; $5.7B 6.25% notes (Morgan Stanley, BB)","Prior NA leases (TeraWulf, Cipher, Hut 8) were all 2025 and also Google-backstopped"]},
+ {r:"NA", n:"Nebius", ig:"NON-IG", deals:"2 newly in scope (Cloud Capital/Arcapita Minneapolis; Oklahoma site)", mw:"21 MW disclosed (→ ~31); OK site n/d", notes:["Anchor tenant at Minneapolis 1001 3rd Ave S (announced Jan 14, 2026); economics undisclosed","Corporate credit context: $3.7B cash + Microsoft/Meta offtake; no lease-specific guarantees published","Targets 16 global sites / 800 MW–1 GW connected power by end-2026 — more NA colo leases likely"]},
+ {r:"NA", n:"phoenixNAP", ig:"NON-IG", deals:"1 newly in scope (RadiusDC Phoenix sale-leaseback)", mw:"n/d (tenant share)", notes:["Sells Phoenix DC + colo business to RadiusDC, remains as tenant (Mar 12, 2026); close expected Q2 2026","Retains ~80% of business (Bare Metal Cloud, network services) as facility tenant"]},
+ {r:"NA", n:"Tesla", ig:"IG", deals:"0 — no 2026 NA DC leases found", mw:"—", notes:["Giga Texas AI build is self-build","2026 leases found were Fremont R&D/industrial space, not data centers"]},
+ {r:"NA", n:"Alibaba", ig:"IG", deals:"0 — no 2026 NA activity", mw:"—", notes:["Querétaro MX cloud region opened Feb 2025; Mexico expansion was Sept 2025 announcement","Nothing announced Jan–Jun 2026 for US/Canada/Mexico"]},
+ {r:"EMEA", n:"Microsoft", ig:"IG (AAA)", deals:"3 (Nscale Narvik 210, Start Campus Sines 200, Pure DC Amsterdam)", mw:"~410 MW", notes:["Largest EMEA AI taker in 2026; stepped in for OpenAI on Stargate Norway","All via neocloud/colo hosts (Nscale, Start Campus)"]},
+ {r:"EMEA", n:"Nebius", ig:"NON-IG", deals:"2 (Kao Harlow 22 lease; Béthune 240 self-build)", mw:"262 MW", notes:["UK pledge ~£1.7B; toward 65 MW UK by 2027","Béthune among Europe's largest AI factories"]},
+ {r:"EMEA", n:"CoreWeave", ig:"NON-IG", deals:"1 (Merlin Spain ~18 MW; 39 MW total)", mw:"18 MW", notes:["First Spain anchor (Álava + Barcelona)","~$2.2B EU program (Sweden/Norway/Spain) on watch list"]},
+ {r:"APAC", n:"OpenAI", ig:"NON-IG", deals:"3 (Tata India, NextDC S7, Samsung/SK Korea)", mw:"~670+ MW", notes:["Most active APAC AI tenant via 'OpenAI for Countries' / Stargate","Tata option scales to 1 GW; NextDC S7 to 550 MW"]},
+ {r:"APAC", n:"Google", ig:"IG (AA+)", deals:"1 (AdaniConneX Visakhapatnam 1 GW)", mw:"1,000 MW", notes:["India's largest DC campus; ~$15B 2026-2030","Anchor; AdaniConneX + Airtel ecosystem partners"]},
+ {r:"APAC", n:"AWS", ig:"IG (AA)", deals:"1 (CDC 555 MW, undisclosed)", mw:"555 MW", notes:["Largest-ever Australian DC deal (CDC)","Customer officially undisclosed; AWS = slide attribution"]},
+ {r:"APAC", n:"Microsoft", ig:"IG (AAA)", deals:"1 (NextDC Sydney S4 250 MW, undisclosed)", mw:"250 MW", notes:["Triggered NextDC A$1.5B raise / A$2.2B capital plan","Customer undisclosed; MSFT = slide attribution"]}
+];
+function renderTenants(){ document.getElementById('tenantcards').innerHTML = TEN.filter(t=>inReg(t.r||'NA')).map(t=>`<div class="scard">
+  <h3>${t.n} ${t.ig.startsWith('NON')?'<span class="badge b-nonig">NON-IG</span>':'<span class="badge b-ig">'+t.ig+'</span>'}</h3>
+  <div class="meta">${t.deals}</div>
+  <div class="stats"><div class="s"><div class="v">${t.mw}</div><div class="l">2026 MW</div></div></div>
+  <ul>${t.notes.map(n=>`<li>${n}</li>`).join('')}</ul></div>`).join('') || '<div class="note">No tenant rollup for this region.</div>'; }
+
+/* ---------- Lessor summary ---------- */
+const LES = [
+ {r:"NA", n:"Applied Digital", deals:"3 (DF1, PF3, DF2 — all same unnamed high-IG customer)", mw:"810 MW", tcv:"$20.2B base / $30.9B+ w/ renewals disclosed", notes:["Fastest 2026 signer: 810 MW in <7 weeks; portfolio 1.4 GW / ~$36B base / ~$86B w/ renewals","~70% of contracted revenue now IG-hyperscaler-backed","6th campus in 'advanced negotiations' (watch: 75%)"]},
+ {r:"NA", n:"Hut 8", deals:"1 (Beacon Point Ph 1)", mw:"352 MW", tcv:"$9.8B base / $25.1B w/ renewals", notes:["Largest single 2026 deal by TCV; NNN take-or-pay, NO termination rights, 3% escalators","Financed with $4.25B IG-rated project notes at 6.129%","River Bend expansion ROFO on watch list (40%)"]},
+ {r:"NA", n:"Crusoe", deals:"1 (Microsoft Abilene)", mw:"900 MW (campus)", tcv:"n/d (private)", notes:["Converted Oracle/OpenAI's abandoned expansion into a Microsoft campus inside 3 weeks","~5 GW total contracted claim (Bloomberg Jun 9, 2026); Wyoming project paused"]},
+ {r:"NA", n:"Tract Capital / Fleet", deals:"1 reported (NVIDIA Reno)", mw:"200 MW", tcv:"n/d", notes:["New entrant model: single-user 500 MW+ campuses, bond-financed (launched Jan 2026)","$3.8B HY bond, ~$14B order book — debt markets pricing NVIDIA credit"]},
+ {r:"NA", n:"eStruxture", deals:"1 (CoreWeave CAL-3 anchor)", mw:"n/d (90 MW facility)", tcv:"n/d", notes:["First CoreWeave Canada anchor; CAL-3 online H2 2026","PSP-backed; >C$1B Alberta program"]},
+ {r:"NA", n:"Prime Data Centers", deals:"1 (CoreWeave Chicago)", mw:"n/d (est. 50–90)", tcv:"$2.2B base", notes:["Deal surfaced via $850M bond docs, not PR","Completion guarantee from Prime; bondholders carry CRWV tenant credit"]},
+ {r:"NA", n:"BorderPlex / STACK", deals:"1 (Oracle Project Jupiter)", mw:"n/d (GW-class)", tcv:"n/d", notes:["Up to $165B IRB ceiling — largest IRB structure on record","Bloom fuel-cell power; NM open-meetings litigation pending"]},
+ {r:"NA", n:"DataBank", deals:"1 (Oracle Red Oak, reported)", mw:"180 MW", tcv:"n/d", notes:["$2B MUFG-led construction loan — largest in company history","First building operational before YE 2026"]},
+ {r:"NA", n:"Cipher Mining", deals:"1 (unnamed IG, 3rd campus)", mw:"n/d (est. ~100)", tcv:"est. ~$2.1B", notes:["3rd distinct campus lease; $200M MS-led revolver concurrent","Stingray/Colchis next signing on watch list (55%)"]},
+ {r:"NA", n:"Cloud Capital / Arcapita", deals:"1 (Nebius anchor, Minneapolis)", mw:"21 MW (→ ~31)", tcv:"n/d", notes:["Acquired 473k sq ft Tier III facility Jan 2026 with Nebius as sitting anchor tenant","Fund III + Bahrain institutional capital; expansion to ~31 MW planned"]},
+ {r:"NA", n:"RadiusDC", deals:"1 (phoenixNAP sale-leaseback, Phoenix)", mw:"n/d (campus ~26 MW potential)", tcv:"n/d", notes:["Acquires phoenixNAP's Phoenix DC + colo business; phoenixNAP stays as tenant","Will develop DC2/PHX02 (up to 18 MW additional); JPM advised"]},
+ {r:"NA", n:"PowerHouse / AREP", deals:"1 (unnamed hyperscaler, Arcola VA)", mw:"n/d (≤120)", tcv:"n/d", notes:["Spec-to-lease conversion proof point for 8.1 GW / 118-building pipeline","Grand Prairie 1.8 GW on watch list (40%)"]},
+ {r:"NA", n:"Meridian Arc / Coatue–Fluidstack JV", deals:"1 (Fluidstack Indiana 430 MW BTS)", mw:"430 MW", tcv:"n/d (yield-on-cost; $5.7B notes)", notes:["Coatue's data-center entry: Meridian Compute JV (50.1% Coatue/Frontier, 49.9% Fluidstack) on Potentia's Heartland Industrial Park","$5.7B 6.25% senior secured notes (Morgan Stanley, BB/Fitch) — largest AI data-center HY bond to date","Google backstops the Fluidstack NNN lease; first 65 MW hall ~Jul 2027"]},
+ {r:"EMEA", n:"Nscale", deals:"2 (Microsoft — Narvik, Sines)", mw:"410 MW", tcv:"~$6B offtake (Norway)", notes:["UK-based neocloud; Microsoft anchor across Norway + Portugal","Delivering NVIDIA Rubin GPUs at scale"]},
+ {r:"EMEA", n:"EdgeConneX", deals:"1 (Skellefteå ~900 MW)", mw:"~900 MW (campus)", tcv:"n/d", notes:["Up to ~1 GW Sweden campus (former Lyten site)","Hyperscale tenant NOT publicly confirmed (slide intel)"]},
+ {r:"EMEA", n:"MERLIN / Bitzero / Kao", deals:"3 (CoreWeave; OneQode; Nebius)", mw:"~150 MW", tcv:"Bitzero ~$2.6B", notes:["Merlin: CoreWeave Spain; Bitzero: 110 MW 15-yr to OneQode","Kao Data: 22 MW 10-yr to Nebius"]},
+ {r:"APAC", n:"NextDC", deals:"2 (Sydney S4 250; S7 550)", mw:"800 MW", tcv:"A$2.2B capital plan", notes:["S4: undisclosed (MSFT per slide); S7: OpenAI Stargate MoU","Largest APAC operator expansion in 2026"]},
+ {r:"APAC", n:"CDC Data Centres", deals:"1 (555 MW, undisclosed/AWS)", mw:"555 MW", tcv:"n/d (30-yr + options)", notes:["Largest DC contract in Australian history","Lifts CDC past 1 GW contracted; delivered FY28-FY29"]},
+ {r:"APAC", n:"AdaniConneX / Tata", deals:"2 (Google 1 GW; OpenAI 100+ MW)", mw:"1,100+ MW", tcv:"Adani-Google ~$15B", notes:["AdaniConneX: Google Visakhapatnam 1 GW","Tata HyperVault: OpenAI Stargate India, option to 1 GW"]}
+];
+function renderLessors(){ document.getElementById('lessorcards').innerHTML = LES.filter(l=>inReg(l.r||'NA')).map(l=>`<div class="scard">
+  <h3>${l.n}</h3>
+  <div class="meta">${l.deals}</div>
+  <div class="stats"><div class="s"><div class="v">${l.mw}</div><div class="l">2026 MW</div></div><div class="s"><div class="v">${l.tcv}</div><div class="l">Disclosed TCV</div></div></div>
+  <ul>${l.notes.map(n=>`<li>${n}</li>`).join('')}</ul></div>`).join('') || '<div class="note">No lessor rollup for this region.</div>'; }
+
+/* ---------- Market summary ---------- */
+const MKT = [
+ ["Abilene","TX","1 (Crusoe/Microsoft)","900 MW","Microsoft","Stargate flagship adjacency; Oracle/OpenAI exited expansion Mar 2026"],
+ ["Corpus Christi / Robstown","TX","1 (Hut 8 Beacon Point)","352 MW","Unnamed high-IG","1 GW campus; AEP Texas; emerging Gulf Coast market"],
+ ["El Paso","TX","1 (Meta SPV)","~1,000 MW","Meta","$13B SPV financing in market; El Paso Electric"],
+ ["Dallas–Fort Worth","TX","1 (DataBank Red Oak)","180 MW","Oracle (reported)","Plus PowerHouse Grand Prairie 1.8 GW spec on watch list"],
+ ["West Texas (Stingray/Helios/Sweetwater)","TX","1 (Cipher 3rd campus)","est. ~100 MW","Unnamed IG","Galaxy 830 MW + IREN 700 MW + Cipher next on watch list — biggest pipeline cluster"],
+ ["Reno / TRIC","NV","1 (Tract/NVIDIA)","200 MW","NVIDIA (reported)","First at-scale direct NVIDIA lease; bond-financed single-user model"],
+ ["Central Louisiana (Rapides Parish)","LA","1 (APLD Delta Forge 1)","300 MW","Unnamed high-IG","$3.6B campus; plus Hut 8 River Bend expansion watch (40%)"],
+ ["Northern US (undisclosed; est. ND)","ND (est.)","1 (APLD Polaris Forge 3)","300 MW","Unnamed high-IG","APLD's 4th campus; ops Aug 2027"],
+ ["Southern US (undisclosed, new state)","—","1 (APLD Delta Forge 2)","210 MW","Unnamed high-IG","APLD's 5th campus; ops Q1 2028"],
+ ["Chicago (Elk Grove Village)","IL","1 (Prime/CoreWeave)","est. 50–90 MW","CoreWeave","Bond-disclosed BTS; non-IG tenant credit with bondholders"],
+ ["Santa Teresa","NM","1 (Project Jupiter)","n/d (GW-class)","Oracle","Up to $165B IRB; Stargate program; Bloom fuel cells"],
+ ["Northern Virginia (Arcola)","VA","1 (PowerHouse)","n/d (≤120 MW)","Unnamed hyperscaler","Data Center Alley; AWS/MSFT dominant takers"],
+ ["Minneapolis","MN","1 (Cloud Capital–Arcapita/Nebius)","21 MW (→ ~31)","Nebius","Existing Tier III facility; sovereign-AI/inference positioning"],
+ ["Phoenix","AZ","1 (RadiusDC/phoenixNAP)","n/d (~26 MW campus potential)","phoenixNAP","Sale-leaseback; DC2 development planned H1 2028"],
+ ["Calgary (Rocky View Co.)","AB, Canada","1 (eStruxture/CoreWeave)","n/d (90 MW facility)","CoreWeave","Alberta's hyperscale emergence; sovereignty demand"],
+ ["New Lebanon (Sullivan Co.)","IN","1 (Meridian/Coatue–Fluidstack)","430 MW","Fluidstack (Google-backstopped)","Potentia 2.1 GW master plan; $5.7B notes; first hall ~Jul 2027"],
+ ["Narvik","Norway","1 (Nscale/Microsoft)","210 MW","Microsoft","Hydro; MSFT took over Stargate Norway","EMEA"],
+ ["Sines","Portugal","1 (Start Campus/Microsoft)","200 MW","Microsoft","Ocean-cooled; via Nscale","EMEA"],
+ ["Skelleftea","Sweden","1 (EdgeConneX)","~900 MW","Unnamed (MSFT/AWS?)","~1 GW campus; tenant unconfirmed","EMEA"],
+ ["Northern Norway","Norway","1 (Bitzero/OneQode)","110 MW","OneQode","15-yr binding letter; ~$2.6B","EMEA"],
+ ["Alava / Barcelona","Spain","1 (Merlin/CoreWeave)","18 MW","CoreWeave","Largest DC in Spain","EMEA"],
+ ["Slough","UK","1 (Segro)","30-50 MW","Virtus/STT (slide)","Powered-shell pre-lease","EMEA"],
+ ["Harlow / Bethune","UK / France","2 (Nebius)","262 MW","Nebius","Kao 22 MW lease + Bethune 240 MW self-build","EMEA"],
+ ["Sydney","Australia","2 (NextDC S4 + S7)","800 MW","Microsoft / OpenAI","S4 250 (MSFT, undisclosed) + S7 550 (OpenAI)","APAC"],
+ ["Canberra / Melbourne","Australia","1 (CDC)","555 MW","AWS (undisclosed)","Largest-ever Australian DC deal","APAC"],
+ ["Visakhapatnam","India","1 (AdaniConneX/Google)","1,000 MW","Google","India's largest DC campus; ~$15B","APAC"],
+ ["India (TBD)","India","1 (Tata HyperVault/OpenAI)","100-200 MW","OpenAI","Stargate India; option to 1 GW","APAC"],
+ ["Southwest Korea","South Korea","1 (Samsung/SK/OpenAI)","20 MW","OpenAI","Stargate Korea MoU; Samsung/SK Hynix HBM","APAC"]
+];
+function renderMarkets(){ document.getElementById('marketbody').innerHTML = MKT.filter(m=>inReg(m[6]||'NA')).map(m=>`<tr><td><b>${m[0]}</b></td><td>${m[1]}</td><td>${m[2]}</td><td>${m[3]}</td><td>${m[4]}</td><td>${m[5]}</td></tr>`).join('') || '<tr><td colspan="6" class="nd" style="padding:16px">No markets for this region.</td></tr>'; }
+
+/* ---------- Sources ---------- */
+const allSrc = [];
+DEALS.forEach(d=>d.sources.forEach(s=>allSrc.push(s)));
+WATCH.forEach(w=>w.sources.forEach(s=>allSrc.push(s)));
+const seen = new Set();
+document.getElementById('srclist').innerHTML = allSrc.filter(s=>{if(seen.has(s.url))return false;seen.add(s.url);return true})
+  .map(s=>`<li class="src"><a href="${s.url}" target="_blank">${s.title}</a> <span class="vd">— verified 2026-06-12</span></li>`).join('');
+
+/* ---------- Summary (slide view) ---------- */
+const SUMMARY = {
+ NA:{ tot:{ai:"6.4–7.3 GW", cloud:"426 MW", avg:"6.9–7.7 GW"}, rows:[
+  {op:"Aligned", cust:"Meta, AWS", ai:"750", cloud:"140", conf:"high", city:"—"},
+  {op:"Crusoe", cust:"Microsoft", ai:"672", cloud:"", conf:"high", city:"Abilene, TX"},
+  {op:"Rowan", cust:"Meta", ai:"300–450", cloud:"", conf:"med", city:"—"},
+  {op:"Applied Digital", cust:"Oracle", ai:"600", cloud:"", conf:"high", city:"LA / ND"},
+  {op:"Nexus", cust:"Google / Ant", ai:"250–500", cloud:"", conf:"med", city:"—"},
+  {op:"QTS (GA)", cust:"Microsoft", ai:"500", cloud:"", conf:"high", city:"Atlanta, GA"},
+  {op:"QTS Richmond", cust:"Microsoft", ai:"400", cloud:"", conf:"high", city:"Richmond, VA"},
+  {op:"Next Frontier", cust:"Fluidstack", ai:"430", cloud:"", conf:"gpu", city:"New Lebanon, IN"},
+  {op:"Hut 8", cust:"NVIDIA", ai:"352", cloud:"", conf:"high", city:"Corpus Christi, TX"},
+  {op:"Nebius", cust:"Meta", ai:"400–600", cloud:"", conf:"gpu", city:"—"},
+  {op:"CoreWeave", cust:"Meta", ai:"300–500", cloud:"", conf:"gpu", city:"—"},
+  {op:"SpaceX", cust:"Anthropic", ai:"300+", cloud:"", conf:"gpu", city:"—"},
+  {op:"Switch", cust:"Microsoft", ai:"200", cloud:"", conf:"high", city:"—"},
+  {op:"Compass", cust:"Microsoft", ai:"200", cloud:"", conf:"high", city:"—"},
+  {op:"DRT", cust:"Microsoft", ai:"200", cloud:"", conf:"high", city:"—"},
+  {op:"Fleet", cust:"NVIDIA", ai:"200", cloud:"", conf:"high", city:"Storey County, NV"},
+  {op:"Bell (CN)", cust:"CoreWeave", ai:"140", cloud:"", conf:"gpu", city:"Canada"},
+  {op:"EdgeCore", cust:"AWS", ai:"", cloud:"114", conf:"high", city:"—"},
+  {op:"NTT", cust:"AWS", ai:"", cloud:"100", conf:"high", city:"—"},
+  {op:"Edged Compute", cust:"CoreWeave, Alibaba", ai:"80–90", cloud:"", conf:"gpu", city:"—"},
+  {op:"SB Energy", cust:"Arm", ai:"50", cloud:"", conf:"med", city:"—"},
+  {op:"Riot", cust:"AMD", ai:"50", cloud:"", conf:"high", city:"Rockdale, TX"},
+  {op:"Databank", cust:"Healthcare", ai:"48", cloud:"", conf:"high", city:"—"},
+  {op:"EdgeConneX", cust:"Meta", ai:"", cloud:"40", conf:"med", city:"—"},
+  {op:"DRT", cust:"LinkedIn", ai:"", cloud:"32", conf:"med", city:"—"},
+  {op:"eStruxture (CN)", cust:"CoreWeave", ai:"24–30", cloud:"", conf:"gpu", city:"Calgary, AB"}
+ ]},
+ EMEA:{ tot:{ai:"1.5–1.6 GW", cloud:"75 MW", avg:"1.6–1.7 GW"}, rows:[
+  {op:"EdgeConneX", cust:"Microsoft / AWS", ai:"900", cloud:"", conf:"high", city:"Skelleftea, SE"},
+  {op:"Nscale", cust:"Microsoft", ai:"210", cloud:"", conf:"high", city:"Narvik, NO"},
+  {op:"Start Campus / Nscale", cust:"Microsoft", ai:"200", cloud:"", conf:"high", city:"Sines, PT"},
+  {op:"QTS", cust:"Microsoft", ai:"133", cloud:"", conf:"med", city:"Spain (n/d)"},
+  {op:"Bit zero", cust:"OneQode", ai:"", cloud:"110", conf:"high", city:"N. Norway"},
+  {op:"Virtus", cust:"Microsoft", ai:"", cloud:"75", conf:"med", city:"Saunderton, UK"},
+  {op:"Segro", cust:"Virtus / STT", ai:"30–50", cloud:"", conf:"med", city:"Slough, UK"},
+  {op:"Merlin", cust:"CoreWeave", ai:"18", cloud:"", conf:"gpu", city:"Alava, ES"}
+ ]},
+ APAC:{ tot:{ai:"1.9–2.0 GW", cloud:"115 MW", avg:"2.0–2.1 GW"}, rows:[
+  {op:"CDC", cust:"AWS", ai:"555", cloud:"", conf:"high", city:"Australia"},
+  {op:"CtrlS", cust:"AWS", ai:"400", cloud:"", conf:"med", city:"Hyderabad, IN"},
+  {op:"Adani", cust:"AWS", ai:"400", cloud:"", conf:"med", city:"India"},
+  {op:"NextDC", cust:"Microsoft", ai:"250", cloud:"", conf:"high", city:"Sydney, AU"},
+  {op:"DCI", cust:"ByteDance", ai:"120", cloud:"", conf:"med", city:"Australia"},
+  {op:"Colt", cust:"AWS", ai:"120", cloud:"", conf:"med", city:"Mumbai, IN"},
+  {op:"Tata Hypervault", cust:"OpenAI", ai:"100–200", cloud:"", conf:"high", city:"India"},
+  {op:"AirTrunk MEL", cust:"ByteDance", ai:"100", cloud:"", conf:"med", city:"Melbourne, AU"},
+  {op:"Epoch / Actis", cust:"ByteDance", ai:"", cloud:"60", conf:"med", city:"Johor, MY"},
+  {op:"AirTrunk TOK", cust:"Microsoft", ai:"", cloud:"55", conf:"med", city:"Tokyo, JP"},
+  {op:"Global Switch", cust:"Alibaba", ai:"30–40", cloud:"", conf:"med", city:"Hong Kong"},
+  {op:"BridgeDC", cust:"Tencent", ai:"30", cloud:"", conf:"med", city:"Johor, MY"}
+ ]}
+};
+function sumCell(val,conf){ return val ? `<td class="mw cell-${conf}">${val}</td>` : '<td class="mw"></td>'; }
+function renderSummary(){
+  const order=['NA','EMEA','APAC'], names={NA:'North America',EMEA:'EMEA',APAC:'APAC'};
+  let html='';
+  order.filter(r=>REGION==='ALL'||r===REGION).forEach(r=>{
+    const b=SUMMARY[r];
+    html+=`<div class="sumtitle">${names[r]} <span class="rt">— AI ${b.tot.ai} · Cloud ${b.tot.cloud} · total ${b.tot.avg}</span></div>`;
+    html+=`<div class="tablebox"><table class="sumtable"><thead><tr><th>Operator</th><th>Customer</th><th class="mw">AI MW</th><th class="mw">Cloud MW</th><th>City</th></tr></thead><tbody>`;
+    b.rows.forEach(x=>{ html+=`<tr><td><b>${x.op}</b></td><td>${x.cust}</td>${sumCell(x.ai,x.conf)}${sumCell(x.cloud,x.conf)}<td>${x.city||'—'}</td></tr>`; });
+    html+=`<tr class="tot"><td>${names[r]} total</td><td></td><td class="mw">${b.tot.ai}</td><td class="mw">${b.tot.cloud}</td><td></td></tr></tbody></table></div>`;
+  });
+  document.getElementById('summarytables').innerHTML=html;
+  document.getElementById('globalbar').innerHTML=`<b>🌐 ~11 GW</b> leasing identified globally in 2026-YTD (market intel) — <b>Microsoft</b> leasing up 1.8 GW–3 GW YTD vs 1.7 GW FY2025. ${REGION==='ALL'?'Showing all regions.':'Showing '+names[REGION]+'.'}`;
+}
+
+/* ---------- Region toggle + init ---------- */
+function setRegion(r){
+  REGION=r;
+  document.querySelectorAll('#regionbar button').forEach(b=>b.classList.toggle('active', b.dataset.r===r));
+  renderKPIs(); renderAlert(); renderDeals(); renderWatch(); renderTenants(); renderLessors(); renderMarkets(); renderSummary();
+}
+document.getElementById('regionbar').addEventListener('click',e=>{ if(e.target.dataset.r) setRegion(e.target.dataset.r); });
+setRegion('ALL');
+</script>
+</body>
+</html>
