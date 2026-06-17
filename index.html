@@ -143,6 +143,7 @@ footer{margin:24px 0 12px;color:var(--muted);font-size:11.5px;text-align:center}
   <div class="tab" data-t="tenants">Tenant Summary</div>
   <div class="tab" data-t="lessors">Lessor Summary</div>
   <div class="tab" data-t="markets">Market Summary</div>
+  <div class="tab" data-t="snapshots">Monthly Snapshots</div>
   <div class="tab" data-t="sources">Sources</div>
 </div>
 
@@ -224,6 +225,24 @@ footer{margin:24px 0 12px;color:var(--muted);font-size:11.5px;text-align:center}
       <tbody id="marketbody"></tbody>
     </table>
   </div>
+</div>
+
+<!-- MONTHLY SNAPSHOTS -->
+<div class="pane" id="pane-snapshots" style="display:none">
+  <div class="filters">
+    <label style="font-size:12.5px;color:var(--muted)">Snapshot month</label>
+    <select id="snap-month"></select>
+    <span id="snap-asof" class="nd" style="font-size:12px"></span>
+  </div>
+  <div class="kpis" id="snap-kpis"></div>
+  <div id="snap-delta" class="note" style="display:none"></div>
+  <div class="section-title" style="font-size:14px">By region</div>
+  <div class="tablebox"><table><thead><tr><th>Region</th><th>Deals</th><th>Contracted GW</th><th>Watch</th></tr></thead><tbody id="snap-region"></tbody></table></div>
+  <div class="section-title" style="font-size:14px">Snapshot trend (all stored months)</div>
+  <div class="tablebox"><table><thead><tr><th>Month</th><th>Deals</th><th>GW</th><th>TCV ($B)</th><th>Watch</th></tr></thead><tbody id="snap-trend"></tbody></table></div>
+  <div class="section-title" style="font-size:14px">Deal book this month</div>
+  <div class="tablebox"><table><thead><tr><th>Announced</th><th>Region</th><th>Lessor</th><th>Tenant</th><th>MW</th></tr></thead><tbody id="snap-book"></tbody></table></div>
+  <div class="note">Snapshots are captured automatically — each run upserts the current month to the latest state, so when the month ends the entry freezes at the last run (closest to month-end). The current month shows "(month-to-date)". Stored in <b>leasing-intel-snapshots.json</b> and embedded as <b>const SNAPSHOTS</b>.</div>
 </div>
 
 <!-- SOURCES -->
@@ -774,6 +793,296 @@ const WATCH = [
  sources:[{url:"https://www.datacenterdynamics.com/en/news/anthropic-signs-more-than-a-dozen-letters-of-intent-for-data-center-leases-report/",title:"DCD — Anthropic 12+ LOIs"}]}
 ];
 
+const SNAPSHOTS = [
+ {
+  "month": "2026-06",
+  "asOf": "2026-06-16",
+  "current": true,
+  "deals": 32,
+  "gw": 8.51,
+  "tcvB": 40.8,
+  "watch": 25,
+  "byRegion": {
+   "NA": {
+    "deals": 17,
+    "mw": 4063,
+    "watch": 21,
+    "gw": 4.06
+   },
+   "EMEA": {
+    "deals": 8,
+    "mw": 1750,
+    "watch": 2,
+    "gw": 1.75
+   },
+   "APAC": {
+    "deals": 7,
+    "mw": 2693,
+    "watch": 2,
+    "gw": 2.69
+   }
+  },
+  "book": [
+   {
+    "lessor": "Meridian Arc HoldCo (Coatue/Frontier–Fluidstack JV)",
+    "tenant": "Fluidstack",
+    "mw": "430",
+    "mwNum": 430,
+    "region": "NA",
+    "date": "2026-04-16"
+   },
+   {
+    "lessor": "Applied Digital",
+    "tenant": "Unnamed (high-IG hyperscaler)",
+    "mw": "210",
+    "mwNum": 210,
+    "region": "NA",
+    "date": "2026-06-08"
+   },
+   {
+    "lessor": "Prime Data Centers",
+    "tenant": "CoreWeave",
+    "mw": "est. 50–90",
+    "mwNum": 70,
+    "region": "NA",
+    "date": "2026-06-02"
+   },
+   {
+    "lessor": "Applied Digital",
+    "tenant": "Unnamed (high-IG hyperscaler)",
+    "mw": "300",
+    "mwNum": 300,
+    "region": "NA",
+    "date": "2026-05-20"
+   },
+   {
+    "lessor": "eStruxture Data Centers",
+    "tenant": "CoreWeave",
+    "mw": "Not disclosed (anchor, Ph 1 of 90 MW)",
+    "mwNum": 0,
+    "region": "NA",
+    "date": "2026-05-14"
+   },
+   {
+    "lessor": "Hut 8 (Beacon Point DC LLC)",
+    "tenant": "Unnamed (high-IG)",
+    "mw": "352",
+    "mwNum": 352,
+    "region": "NA",
+    "date": "2026-05-06"
+   },
+   {
+    "lessor": "SPV (TBD) / Meta self-developed",
+    "tenant": "Meta",
+    "mw": "~1,000 (campus)",
+    "mwNum": 1000,
+    "region": "NA",
+    "date": "2026-05-05 (financing mandate reported)"
+   },
+   {
+    "lessor": "Applied Digital",
+    "tenant": "Unnamed (high-IG hyperscaler)",
+    "mw": "300",
+    "mwNum": 300,
+    "region": "NA",
+    "date": "2026-04-23"
+   },
+   {
+    "lessor": "DataBank",
+    "tenant": "Oracle (reported)",
+    "mw": "180 (first 3 bldgs)",
+    "mwNum": 180,
+    "region": "NA",
+    "date": "2026-04-21 (pre-leasing disclosed at financing close)"
+   },
+   {
+    "lessor": "Crusoe",
+    "tenant": "Microsoft",
+    "mw": "900 (campus power)",
+    "mwNum": 900,
+    "region": "NA",
+    "date": "2026-03-24 (Bloomberg) / 03-27 (Crusoe PR)"
+   },
+   {
+    "lessor": "Cipher Mining (Cipher Digital)",
+    "tenant": "Unnamed (IG hyperscaler)",
+    "mw": "est. ~100 (if Stingray)",
+    "mwNum": 100,
+    "region": "NA",
+    "date": "2026-03-25"
+   },
+   {
+    "lessor": "Tract Capital (Fleet Data Centers)",
+    "tenant": "NVIDIA (reported)",
+    "mw": "200",
+    "mwNum": 200,
+    "region": "NA",
+    "date": "2026-02-12 (Bloomberg; bond priced that week)"
+   },
+   {
+    "lessor": "BorderPlex Digital Assets / STACK Infrastructure",
+    "tenant": "Oracle",
+    "mw": "Not disclosed (GW-class)",
+    "mwNum": 0,
+    "region": "NA",
+    "date": "2026-01-23 (Oracle tenancy confirmation)"
+   },
+   {
+    "lessor": "PowerHouse Data Centers / AREP",
+    "tenant": "Unnamed (hyperscaler)",
+    "mw": "Not disclosed (campus to 120 MW)",
+    "mwNum": 0,
+    "region": "NA",
+    "date": "2026-01-15"
+   },
+   {
+    "lessor": "Cloud Capital / Arcapita JV",
+    "tenant": "Nebius",
+    "mw": "21 (→ ~31 planned)",
+    "mwNum": 21,
+    "region": "NA",
+    "date": "2026-01-14"
+   },
+   {
+    "lessor": "Not disclosed (Oklahoma operator)",
+    "tenant": "Nebius",
+    "mw": "n/d (~100 est., unverified)",
+    "mwNum": 0,
+    "region": "NA",
+    "date": "2026-02-12"
+   },
+   {
+    "lessor": "RadiusDC",
+    "tenant": "phoenixNAP",
+    "mw": "n/d (tenant share)",
+    "mwNum": 0,
+    "region": "NA",
+    "date": "2026-03-12"
+   },
+   {
+    "lessor": "Nscale",
+    "tenant": "Microsoft",
+    "mw": "210",
+    "mwNum": 210,
+    "region": "EMEA",
+    "date": "2026-04"
+   },
+   {
+    "lessor": "Start Campus",
+    "tenant": "Microsoft",
+    "mw": "200",
+    "mwNum": 200,
+    "region": "EMEA",
+    "date": "2026-05-05"
+   },
+   {
+    "lessor": "Bitzero",
+    "tenant": "OneQode",
+    "mw": "110",
+    "mwNum": 110,
+    "region": "EMEA",
+    "date": "2026-05-05"
+   },
+   {
+    "lessor": "MERLIN Properties (Edged)",
+    "tenant": "CoreWeave",
+    "mw": "18",
+    "mwNum": 18,
+    "region": "EMEA",
+    "date": "2026"
+   },
+   {
+    "lessor": "Segro",
+    "tenant": "Unnamed (Virtus/STT per slide)",
+    "mw": "30–50",
+    "mwNum": 50,
+    "region": "EMEA",
+    "date": "2026-03-16"
+   },
+   {
+    "lessor": "EdgeConneX",
+    "tenant": "Unnamed (MSFT/AWS per slide)",
+    "mw": "900",
+    "mwNum": 900,
+    "region": "EMEA",
+    "date": "2026-02-27"
+   },
+   {
+    "lessor": "Kao Data",
+    "tenant": "Nebius",
+    "mw": "22",
+    "mwNum": 22,
+    "region": "EMEA",
+    "date": "2026"
+   },
+   {
+    "lessor": "Nebius (self-build)",
+    "tenant": "Nebius",
+    "mw": "240",
+    "mwNum": 240,
+    "region": "EMEA",
+    "date": "2026"
+   },
+   {
+    "lessor": "CDC Data Centres",
+    "tenant": "AWS (undisclosed US IG)",
+    "mw": "555",
+    "mwNum": 555,
+    "region": "APAC",
+    "date": "2026-05-06"
+   },
+   {
+    "lessor": "NextDC",
+    "tenant": "Microsoft (undisclosed US hyperscaler)",
+    "mw": "250",
+    "mwNum": 250,
+    "region": "APAC",
+    "date": "2026-04-20"
+   },
+   {
+    "lessor": "Tata HyperVault (TCS)",
+    "tenant": "OpenAI",
+    "mw": "100–200",
+    "mwNum": 150,
+    "region": "APAC",
+    "date": "2026-02-19"
+   },
+   {
+    "lessor": "AdaniConneX",
+    "tenant": "Google",
+    "mw": "1,000",
+    "mwNum": 1000,
+    "region": "APAC",
+    "date": "2026-04-28"
+   },
+   {
+    "lessor": "NextDC",
+    "tenant": "OpenAI",
+    "mw": "550",
+    "mwNum": 550,
+    "region": "APAC",
+    "date": "2025-12-04"
+   },
+   {
+    "lessor": "Samsung SDS / SK Telecom",
+    "tenant": "OpenAI",
+    "mw": "20",
+    "mwNum": 20,
+    "region": "APAC",
+    "date": "2026-02-11"
+   },
+   {
+    "lessor": "Reliance Industries",
+    "tenant": "Meta",
+    "mw": "168",
+    "mwNum": 168,
+    "region": "APAC",
+    "date": "2026-06-10"
+   }
+  ]
+ }
+];
+
 /* ---------- KPIs ---------- */
 function renderKPIs(){
   const D = DEALS.filter(d=>inReg(d.region)), W = WATCH.filter(w=>inReg(w.region));
@@ -1052,6 +1361,38 @@ function setRegion(r){
 }
 document.getElementById('regionbar').addEventListener('click',e=>{ if(e.target.dataset.r) setRegion(e.target.dataset.r); });
 setRegion('ALL');
+
+/* ---------- Monthly snapshots ---------- */
+const MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function snapLabel(s){const [y,m]=s.month.split('-');return `${MON[+m-1]} ${y}${s.current?' (month-to-date)':''}`;}
+function snapSign(n){return n>0?'+'+n:''+n;}
+function renderSnapshot(month){
+  const s=(SNAPSHOTS||[]).find(x=>x.month===month); if(!s)return;
+  document.getElementById('snap-asof').textContent='as of '+s.asOf;
+  document.getElementById('snap-kpis').innerHTML=`
+    <div class="kpi"><div class="v">${s.deals}</div><div class="l">Confirmed deals</div></div>
+    <div class="kpi"><div class="v">~${s.gw} GW</div><div class="l">Contracted MW</div></div>
+    <div class="kpi good"><div class="v">$${s.tcvB}B</div><div class="l">Disclosed base TCV</div></div>
+    <div class="kpi"><div class="v">${s.watch}</div><div class="l">Watch-list projects</div></div>`;
+  const sorted=[...SNAPSHOTS].sort((a,b)=>a.month.localeCompare(b.month));
+  const idx=sorted.findIndex(x=>x.month===month), prev=idx>0?sorted[idx-1]:null;
+  const dEl=document.getElementById('snap-delta');
+  if(prev){const dd=s.deals-prev.deals,dg=+(s.gw-prev.gw).toFixed(2),dt=+(s.tcvB-prev.tcvB).toFixed(1),dw=s.watch-prev.watch;
+    dEl.style.display='';dEl.innerHTML=`<b>vs ${snapLabel(prev).replace(' (month-to-date)','')}:</b> ${snapSign(dd)} deals · ${snapSign(dg)} GW · ${snapSign(dt)} $B TCV · ${snapSign(dw)} watch`;
+  } else {dEl.style.display='none';}
+  document.getElementById('snap-region').innerHTML=['NA','EMEA','APAC'].map(r=>{const b=s.byRegion[r]||{};return `<tr><td><b>${r}</b></td><td>${b.deals||0}</td><td>~${b.gw||0}</td><td>${b.watch||0}</td></tr>`}).join('');
+  const book=[...(s.book||[])].sort((a,b)=>String(b.date).localeCompare(String(a.date)));
+  document.getElementById('snap-book').innerHTML=book.map(d=>`<tr><td>${d.date}</td><td>${d.region}</td><td><b>${d.lessor}</b></td><td class="tenant">${d.tenant}</td><td>${fmt(d.mw)}</td></tr>`).join('');
+}
+function initSnapshots(){
+  const sel=document.getElementById('snap-month');
+  const months=[...SNAPSHOTS].sort((a,b)=>b.month.localeCompare(a.month));
+  sel.innerHTML=months.map(s=>`<option value="${s.month}">${snapLabel(s)}</option>`).join('');
+  sel.addEventListener('change',()=>renderSnapshot(sel.value));
+  document.getElementById('snap-trend').innerHTML=months.map(s=>`<tr><td><b>${snapLabel(s)}</b></td><td>${s.deals}</td><td>~${s.gw}</td><td>$${s.tcvB}</td><td>${s.watch}</td></tr>`).join('');
+  if(months.length) renderSnapshot(months[0].month);
+}
+initSnapshots();
 </script>
 </body>
 </html>
