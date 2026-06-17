@@ -195,6 +195,12 @@ footer{margin:24px 0 12px;color:var(--muted);font-size:11.5px;text-align:center}
 
 <!-- WATCH LIST -->
 <div class="pane" id="pane-watch" style="display:none">
+  <div class="filters">
+    <select id="fw-lessor"><option value="">All lessors</option></select>
+    <select id="fw-tenant"><option value="">All likely tenants</option></select>
+    <input id="fw-search" type="text" placeholder="Search watch list (site, signal, EDGAR…)">
+    <button class="clr" onclick="clearWatchFilters()">× Clear</button>
+  </div>
   <div class="tablebox">
     <table id="watchtable">
       <thead><tr>
@@ -1176,7 +1182,8 @@ renderDeals();
 
 /* ---------- Watch list ---------- */
 function renderWatch(){
- document.getElementById('watchbody').innerHTML = WATCH.filter(w=>inReg(w.region)).map((w,i)=>{
+ const _fl=document.getElementById('fw-lessor').value,_ft=document.getElementById('fw-tenant').value,_fq=document.getElementById('fw-search').value.toLowerCase();
+ document.getElementById('watchbody').innerHTML = WATCH.filter(w=>inReg(w.region)&&(!_fl||w.lessor===_fl)&&(!_ft||w.tenant===_ft)&&(!_fq||JSON.stringify(w).toLowerCase().includes(_fq))).map((w,i)=>{
   const pc = w.prob>=65?'p-hi':w.prob>=45?'p-md':'p-lo';
   const vRow = ''; const e=edgarFor(w);
   return `<tr class="mainrow${vRow}" onclick="toggleDetail('w${i}')">
@@ -1187,8 +1194,15 @@ function renderWatch(){
     ${e?`<div class="f" style="grid-column:1/-1;border-top:1px solid var(--border);padding-top:10px;margin-top:4px"><div class="k">\u{1F50D} SEC EDGAR overlay \u2014 projected tenant: <b style=\"color:var(--accent)\">${e.projected}</b> <span class=\"badge b-${e.conf==='High'?'high':e.conf==='Medium'?'med':'low'}\">${e.conf}</span></div><div class="x" style="margin-top:6px"><b>Developer / new-capacity filing:</b> ${e.opSignal} ${e.opFiling?`<a href=\"${e.opFiling.url}\" target=\"_blank\">[${e.opFiling.form} ${e.opFiling.date}]</a>`:''}</div><div class="x" style="margin-top:4px"><b>Tenant-demand filing:</b> ${e.tenSignal} ${e.tenFiling?`<a href=\"${e.tenFiling.url}\" target=\"_blank\">[${e.tenFiling.form} ${e.tenFiling.date}]</a>`:''}</div><div class="x" style="margin-top:4px"><b>Projection logic:</b> ${e.rationale}</div></div>`:''}
     <div class="f"><div class="k">Sources</div><div class="x src">${w.sources.map(s=>`<a href="${s.url}" target="_blank">${s.title}</a>`).join('<br>')}<br><span class="nd">verified 2026-06-12</span></div></div>
   </div></td></tr>`;
- }).join('') || '<tr><td colspan="8" class="nd" style="padding:18px">No watch-list items for this region.</td></tr>';
+ }).join('') || '<tr><td colspan="8" class="nd" style="padding:18px">No watch-list items match the current filters.</td></tr>';
 }
+function popWatchFilters(){
+  pop('fw-lessor',WATCH.map(w=>w.lessor)); pop('fw-tenant',WATCH.map(w=>w.tenant));
+  ['fw-lessor','fw-tenant'].forEach(id=>document.getElementById(id).addEventListener('change',renderWatch));
+  document.getElementById('fw-search').addEventListener('input',renderWatch);
+}
+function clearWatchFilters(){ ['fw-lessor','fw-tenant','fw-search'].forEach(id=>document.getElementById(id).value=''); renderWatch(); }
+popWatchFilters();
 
 /* ---------- Tenant summary ---------- */
 const TEN = [
