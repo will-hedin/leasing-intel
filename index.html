@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hyperscale Leasing Intelligence — North America 2026</title>
+<title>Hyperscale Leasing Intelligence — Global 2026</title>
 <style>
 :root{
   --bg:#0b0f17; --panel:#121927; --panel2:#0f1520; --border:#1f2a3d;
@@ -112,7 +112,7 @@ footer{margin:24px 0 12px;color:var(--muted);font-size:11.5px;text-align:center}
 <div class="wrap">
 <header>
   <h1>Hyperscale Leasing Intelligence — <span class="hl">Global 2026</span></h1>
-  <div class="sub">Tracked tenants: 8 hyperscalers (AWS · Meta · Google · Microsoft · Oracle · NVIDIA · Tesla · Alibaba) + 27 neocloud/GPU-cloud providers (CoreWeave, Crusoe, Nebius, Lambda, Fluidstack, Together AI, RunPod &amp; more) &nbsp;|&nbsp; Global: North America · EMEA · APAC &nbsp;|&nbsp; 2026 announcements &nbsp;|&nbsp; Last updated: <b>June 19, 2026</b></div>
+  <div class="sub">Tracked tenants: 8 hyperscalers (AWS · Meta · Google · Microsoft · Oracle · NVIDIA · Tesla · Alibaba) + 27 neocloud/GPU-cloud providers (CoreWeave, Crusoe, Nebius, Lambda, Fluidstack, Together AI, RunPod &amp; more) &nbsp;|&nbsp; Global: North America · EMEA · APAC &nbsp;|&nbsp; 2026 announcements &nbsp;|&nbsp; Last updated: <b>June 23, 2026</b></div>
 </header>
 
 <div class="kpis" id="kpis"></div>
@@ -120,8 +120,9 @@ footer{margin:24px 0 12px;color:var(--muted);font-size:11.5px;text-align:center}
 <div class="alert" id="alertbar"></div>
 
 <div class="newrun">
-  <div class="nr-title">🆕 New This Run — June 19, 2026</div>
-  <div class="nr-item"><span class="tag none">DELTA (Jun 19)</span><b>No new leases.</b> Global recency sweep (Jun 18–19, all regions) found no newly executed real-estate leases and no watch-list promotions. Book holds at <b>32 confirmed deals</b> · 25 watch-list projects. Notable but out-of-scope (compute/capacity, not property leases): <b>Meta–Crusoe ~1.6 GW</b> (Childress TX + Warrenton MO, Bloomberg-reported Jun 18) and HIVE/BUZZ HPC–Bell/Cohere $220M GPU contract. Bitdeer Tydal (Norway) colo still "advanced negotiations," unsigned.</div>
+  <div class="nr-title">🆕 New This Run — June 23, 2026</div>
+  <div class="nr-item"><span class="tag">NEW · NA</span><b>Meta — Crusoe (1.6 GW, Childress TX + Warrenton MO).</b> Meta contracts the full 1.6 GW across two Crusoe-developed campuses — Childress TX (~1 GW ERCOT-approved interconnect) + Warrenton MO (~600 MW). Reported Jun 18–19 (Bloomberg/DCD/Reuters) and corroborated by Crusoe's Jun 9 capacity update (4.9 GW contracted / 40+ GW pipeline). BTS capacity lease at Crusoe-owned sites — terms/financing undisclosed; Medium confidence (customer named via reporting, not by Crusoe's PR). <b>Reclassified IN-scope</b> as a property/BTS lease (same structure as the confirmed Crusoe–Microsoft Abilene deal), having been flagged out-of-scope last run. Book now <b>33 confirmed deals</b> · 25 watch-list projects; ~10.1 GW contracted (NA +1.6 GW).</div>
+  <div class="nr-item"><span class="tag none">DELTA (Jun 20–23)</span>No other newly executed leases and no watch-list promotions found across NA/EMEA/APAC. Out-of-scope noted: the Nscale–WhiteFiber 40 MW NC deal ($865M) is a <b>Dec 2025</b> announcement (not 2026); Cipher/AWS and Galaxy/Helios–CoreWeave chatter remains filing-level, no fresh 2026 signing.</div>
   <div class="nr-item"><span class="tag">PREDICTIVE</span>SEC EDGAR overlay active on 15 watch-list campuses (filing-grounded tenant projections); strongest filing-backed calls remain Galaxy/Helios → CoreWeave and Core Scientific/Muskogee → CoreWeave (both High).</div>
   <div class="nr-item"><span class="tag none">DATA NOTE</span>The Summary tab reproduces the May-26 slide faithfully, incl. medium/low-confidence and GPU-cloud deals; several tenant attributions there (QTS, Virtus, CtrlS, Adani/AWS, DCI, Colt, AirTrunk, Global Switch, BridgeDC) are slide intel and remain unverified in public sources.</div>
 </div>
@@ -251,7 +252,7 @@ footer{margin:24px 0 12px;color:var(--muted);font-size:11.5px;text-align:center}
 
 <!-- SOURCES -->
 <div class="pane" id="pane-sources" style="display:none">
-  <div class="section-title">All Sources (verified June 12, 2026)</div>
+  <div class="section-title">All Sources (verified June 23, 2026)</div>
   <ul class="src-list" id="srclist"></ul>
 </div>
 
@@ -265,6 +266,22 @@ const inReg = r => REGION==='ALL' || r===REGION;
 const REGION_LABEL = {ALL:'Global', NA:'North America', EMEA:'EMEA', APAC:'APAC'};
 
 const DEALS = [
+{
+  region:"NA", lessor:"Crusoe", tenantShort:"Meta", tenantFull:"Meta Platforms — contracts the full 1.6 GW across both Crusoe-developed campuses (customer named via Bloomberg/DCD/Reuters; not named in Crusoe's own newsroom release)",
+  likelyTenant:"—", likelyRationale:"Tenant identified as Meta in Bloomberg, DCD, Reuters and corroborating trade coverage of the Jun 18–19 agreement; Crusoe's Jun 9 capacity update confirms the 1.6 GW at these two sites without naming the customer.",
+  developer:"Crusoe Energy Systems (self-developed; onsite generation at Childress)", city:"Childress, TX + Warrenton, MO", state:"TX / MO", campus:"Two Crusoe campuses — Childress TX (~1 GW ERCOT-approved interconnect) + Warrenton MO (~600 MW; ~340-acre parcel, two 805,000 sq ft data halls + 40,000 sq ft admin)",
+  mw:"1,600 (both sites)", mwNum:1600, itCapacity:"1.6 GW combined contracted capacity (Childress ~1,000 MW + Warrenton ~600 MW); IT-load split not disclosed", announceDate:"2026-06-19", dealType:"BTS capacity agreement (2 campuses)",
+  tenor:ND, structure:"BTS / long-term capacity lease at Crusoe-owned campuses; structure & term not disclosed", leaseType:ND,
+  yieldOnCost:ND, buildCost:ND, tcvBase:ND, tcvRenewals:ND,
+  financing:"Not disclosed for these campuses. Context: Crusoe's broader buildout backed by the $11.6B Crusoe/Blue Owl/Primary Digital JV (JPMorgan-led debt); Crusoe reports 4.9 GW contracted / 40+ GW pipeline as of Jun 9, 2026",
+  backstop:"N/A — Meta is the IG counterparty (Meta A/AA-tier)", backstopProvider:"N/A (IG tenant)", igStatus:"IG",
+  termination:ND, latePenalties:ND, delivery:"Childress interconnect ERCOT-approved; Warrenton campus in development; delivery schedule not disclosed",
+  confidence:"Medium", confRationale:"Multi-outlet corroboration (Bloomberg, DCD, Reuters, GlobeNewswire) of Meta=customer; Crusoe's own Jun 9 PR confirms the 1.6 GW at Childress + Warrenton but does not name Meta; neither party confirmed on the record and financial terms undisclosed. Reclassified IN-scope this run as a property/BTS capacity lease at Crusoe-owned campuses (same structure as the confirmed Crusoe–Microsoft Abilene entry), not a Crusoe Cloud compute purchase.",
+  sources:[
+    {url:"https://www.datacenterdynamics.com/en/news/meta-signs-16gw-capacity-agreement-with-crusoe-report/",title:"DCD — Meta signs 1.6 GW capacity agreement with Crusoe (Jun 19, 2026)"},
+    {url:"https://www.crusoe.ai/resources/newsroom/crusoes-contracted-ai-infrastructure-capacity-approaches-5-gigawatts-across-data-centers-and-cloud",title:"Crusoe newsroom — 4.9 GW contracted (Childress + Warrenton = 1.6 GW), Jun 9, 2026"},
+    {url:"https://techstartups.com/2026/06/18/meta-strikes-new-1-6-gigawatt-ai-computing-deal-with-data-center-startup-crusoe/",title:"Tech Startups — Meta 1.6 GW Crusoe deal (Jun 18, 2026)"}]
+},
 {
   region:"NA", lessor:"Meridian Arc HoldCo (Coatue/Frontier–Fluidstack JV)", tenantShort:"Fluidstack", tenantFull:"Fluidstack (Fluidstack Indiana Inc.) — 100% of 430 MW; anchor tenant of the Meridian Compute JV (50.1% Coatue/Frontier, 49.9% Fluidstack)",
   likelyTenant:"—", likelyRationale:"Tenant named (Fluidstack) in bond and legal documents.",
@@ -800,18 +817,18 @@ const WATCH = [
 const SNAPSHOTS = [
  {
   "month": "2026-06",
-  "asOf": "2026-06-19",
+  "asOf": "2026-06-23",
   "current": true,
-  "deals": 32,
-  "gw": 8.51,
+  "deals": 33,
+  "gw": 10.11,
   "tcvB": 40.8,
   "watch": 25,
   "byRegion": {
    "NA": {
-    "deals": 17,
-    "mw": 4063,
+    "deals": 18,
+    "mw": 5663,
     "watch": 21,
-    "gw": 4.06
+    "gw": 5.66
    },
    "EMEA": {
     "deals": 8,
@@ -827,6 +844,14 @@ const SNAPSHOTS = [
    }
   },
   "book": [
+   {
+    "lessor": "Crusoe",
+    "tenant": "Meta",
+    "mw": "1,600 (both sites)",
+    "mwNum": 1600,
+    "region": "NA",
+    "date": "2026-06-19"
+   },
    {
     "lessor": "Meridian Arc HoldCo (Coatue/Frontier–Fluidstack JV)",
     "tenant": "Fluidstack",
@@ -1303,6 +1328,7 @@ document.getElementById('srclist').innerHTML = allSrc.filter(s=>{if(seen.has(s.u
 const SUMMARY = {
  NA:{ tot:{ai:"6.4–7.3 GW", cloud:"426 MW", avg:"6.9–7.7 GW"}, rows:[
   {op:"Aligned", cust:"Meta, AWS", ai:"750", cloud:"140", conf:"high", city:"—"},
+  {op:"Crusoe", cust:"Meta", ai:"1,600", cloud:"", conf:"high", city:"Childress, TX + Warrenton, MO"},
   {op:"Crusoe", cust:"Microsoft", ai:"672", cloud:"", conf:"high", city:"Abilene, TX"},
   {op:"Rowan", cust:"Meta", ai:"300–450", cloud:"", conf:"med", city:"—"},
   {op:"Applied Digital", cust:"Oracle", ai:"600", cloud:"", conf:"high", city:"LA / ND"},
